@@ -1,4 +1,4 @@
-# Jobify
+<!-- # Jobify
 
 #### Track Your Job Search
 
@@ -78,7 +78,7 @@ npm install normalize.css
 - replace contents of index.css
 - if any questions about normalize or specific styles
 - Coding Addict - [Default Starter Video](https://youtu.be/UDdyGNlQK5w)
-- Repo - [Default Starter Repo](https://github.com/john-smilga/default-starter)
+- Repo - [Default Starter Repo](https://github.com/john-smilga/default-starter) -->
 
 #### Landing Page
 
