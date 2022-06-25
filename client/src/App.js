@@ -1,13 +1,16 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 import * as Pages from "./pages";
 
 
 const App = () => {
     return (
-        <>
-            <h1>Jobify App</h1>
-            <Pages.LandingPage />
-        </>
+        <Routes>
+            <Route path="/" element={<div>dashboard page</div>} />
+            <Route path="/signup" element={<div>sign-up page</div>} />
+            <Route path="/landing" element={<Pages.LandingPage />} />
+            <Route path="*" element={<div>error page</div>} />
+        </Routes>
     )
 }
 
