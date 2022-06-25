@@ -13,10 +13,10 @@ const App = () => {
                 <Link to="/landing">landing</Link>
             </Nav>
             <Routes>
-                <Route path="/" element={<div>dashboard page</div>} />
-                <Route path="/signup" element={<div>sign-up page</div>} />
-                <Route path="/landing" element={<Pages.LandingPage />} />
-                <Route path="*" element={<div>error page</div>} />
+                <Route path="/" element={<Pages.Dashboard />} />
+                <Route path="/signup" element={<Pages.Signup />} />
+                <Route path="/landing" element={<Pages.Landing />} />
+                <Route path="*" element={<Pages.Error />} />
             </Routes>
         </>
     )
