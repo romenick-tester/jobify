@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Logo } from "../../components";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import { FormRow, Alert } from "../../components";
+import { useAppContext } from "../../assets/context";
 
 const initialState = {
     name: "",
@@ -12,15 +13,9 @@ const initialState = {
 
 const Signup = () => {
     const [values, setValues] = useState(initialState);
-    const [showAlert, setShowAlert] = useState({ isOn: false, type: "", msg: "" });
     // use global state and useNavigate
 
-    const alertHandler = ({ isOn = false, type = "success", msg = "" }) => {
-        setShowAlert({ isOn, type, msg });
-        setTimeout(() => {
-            setShowAlert({ isOn: false, type: "", msg: "" })
-        }, 3500);
-    };
+    const { isLoading, alertOn, alertType, alertText } = useAppContext();
 
     const toggleForm = () => {
         setValues({ ...values, name: "", isMember: !values.isMember });
@@ -32,11 +27,7 @@ const Signup = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        if (!values.name) {
-            alertHandler({ isOn: true, type: "success", msg: "You are signed in!" });
-        } else {
-            alertHandler({ isOn: true, type: "success", msg: "signup success!" });
-        }
+        console.log(values);
     };
 
     return (
@@ -44,7 +35,7 @@ const Signup = () => {
             <form className="form" onSubmit={onSubmit}>
                 <Logo />
                 <h3>{values.isMember ? "Sign In" : "Sign Up"}</h3>
-                {showAlert.isOn && <Alert type={showAlert.type} msg={showAlert.msg} />}
+                {alertOn && <Alert type={alertType} msg={alertText} />}
                 {!values.isMember && (
                     <FormRow
                         name="name"
