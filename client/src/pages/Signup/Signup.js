@@ -15,7 +15,7 @@ const Signup = () => {
     const [values, setValues] = useState(initialState);
     // use global state and useNavigate
 
-    const { isLoading, alertOn, alertType, alertText } = useAppContext();
+    const { isLoading, alertOn, alertType, alertText, displayAlert } = useAppContext();
 
     const toggleForm = () => {
         setValues({ ...values, name: "", isMember: !values.isMember });
@@ -27,7 +27,20 @@ const Signup = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(values);
+        const { name, email, password, isMember } = values;
+
+        if (!email || !password || (!isMember && !name)) {
+            displayAlert("danger", "Field is empty!")
+            return
+        } else {
+            displayAlert("success", "Signup success!")
+            if (!name) {
+                console.log({ email: values.email, password: values.password });
+            } else {
+                console.log({ name: values.name, email: values.email, password: values.password });
+            }
+        }
+
     };
 
     return (
