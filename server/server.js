@@ -3,14 +3,19 @@ import dotenv from "dotenv";
 import notFound from "./middlewares/notFound.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import connectDB from "./db/connect.js";
+import authRoutes from "./server-routes/auth.js";
 
 dotenv.config();
 
 const server = express();
 
+server.use(express.json());
+
 server.get("/", (req, res) => {
     res.send("server is running...")
 });
+
+server.use("/api/v1/auth", authRoutes);
 
 server.use(notFound);
 server.use(errorHandler);
