@@ -1,4 +1,4 @@
-import { SHOW_ALERT } from "../constants";
+import { SHOW_ALERT, CLEAR_ALERT } from "../constants";
 
 const reducer = (state, action) => {
     const { payload, type } = action;
@@ -10,6 +10,14 @@ const reducer = (state, action) => {
                 alertType: payload.type,
                 alertText: payload.msg
             };
+
+        case CLEAR_ALERT:
+            return {
+                ...state,
+                alertOn: false,
+                alertType: "",
+                alertText: ""
+            }
 
         default:
             return state;

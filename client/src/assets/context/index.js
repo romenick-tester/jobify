@@ -14,7 +14,14 @@ const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const displayAlert = (type, msg) => {
-        dispatch({ type: "SHOW_ALERT", payload: { type, msg } })
+        dispatch({ type: "SHOW_ALERT", payload: { type, msg } });
+        clearAlert();
+    };
+
+    const clearAlert = () => {
+        setTimeout(() => {
+            dispatch({ type: "CLEAR_ALERT" });
+        }, 3000);
     };
 
     return <AppContext.Provider value={{ ...state, displayAlert }}> {children} </AppContext.Provider>
