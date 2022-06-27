@@ -14,7 +14,7 @@ router
     .post(signup);
 
 router
-    .route("/user/update")
+    .route("/user/:id")
     .get((req, res) => res.status(200).json("update user route"))
     .patch(updateUser);
 

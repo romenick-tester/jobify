@@ -1,7 +1,9 @@
 
 
 const createJob = async (req, res) => {
+    const data = req.body;
     try {
+        console.log(data);
         res.status(201).json("create job");
     } catch (err) {
         console.error(err.message);
@@ -9,16 +11,18 @@ const createJob = async (req, res) => {
 };
 
 const updateJob = async (req, res) => {
+    const { id } = req.params;
     try {
-        res.status(200).json("update job");
+        res.status(200).json(`update job: ${id}`);
     } catch (err) {
         console.error(err.message);
     }
 };
 
 const deleteJob = async (req, res) => {
+    const { id } = req.params;
     try {
-        res.status(200).json("delete job");
+        res.status(200).json(`delete job: ${id}`);
     } catch (err) {
         console.error(err.message);
     }
