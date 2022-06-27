@@ -4,6 +4,7 @@ import notFound from "./middlewares/notFound.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import connectDB from "./db/connect.js";
 import authRoutes from "./server-routes/auth.js";
+import jobsRoutes from "./server-routes/jobs.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ server.get("/", (req, res) => {
 });
 
 server.use("/api/v1/auth", authRoutes);
+server.use("/api/v1/jobs", jobsRoutes);
 
 server.use(notFound);
 server.use(errorHandler);
