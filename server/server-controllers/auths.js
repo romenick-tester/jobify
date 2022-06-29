@@ -1,10 +1,27 @@
+import User from "../models/User.js";
+
 
 // METHOD:      POST
-// ENDPOINT:    http://localhost:5000/api/v1/auth/signin
-const signup = (req, res) => {
-    const { name, email, password } = req.body;
-    console.log(name, email, password);
-    res.status(200).json("signup route");
+// ENDPOINT:    http://localhost:5000/api/v1/auth/signup
+const signup = async (req, res) => {
+    try {
+        const { name, email, password, lastName } = req.body;
+
+        const firstName = name.split(" ")[0];
+        const surname = name.split(" ")[1];
+
+        const user = await User.create({
+            name: firstName || name,
+            lastName: surname || lastName,
+            email,
+            password
+        });
+
+        res.status(201).json({ user });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: "There was an error!" });
+    }
 };
 
 
