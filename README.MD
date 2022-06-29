@@ -215,7 +215,7 @@ return (
 - import App.js
 - add to element={}
 - remove temp navbar -->
-
+<!-- 
 #### Error Page
 
 ```js
@@ -1475,7 +1475,7 @@ app.use('/api/v1/jobs', jobsRouter)
 - User.js
 - setup schema
 - name, email, password, lastName, location
-- all {type:String}
+- all {type:String} -->
 
 #### Validate Email
 
