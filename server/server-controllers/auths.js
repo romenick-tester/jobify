@@ -3,7 +3,7 @@ import User from "../models/User.js";
 
 // METHOD:      POST
 // ENDPOINT:    http://localhost:5000/api/v1/auth/signup
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
     try {
         const { name, email, password, lastName } = req.body;
 
@@ -20,7 +20,7 @@ const signup = async (req, res) => {
         res.status(201).json({ user });
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: "There was an error!" });
+        next(err);
     }
 };
 
