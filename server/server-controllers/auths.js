@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { StatusCodes } from "http-status-codes";
 
 
 // METHOD:      POST
@@ -16,7 +17,7 @@ const signup = async (req, res) => {
         password
     });
 
-    res.status(201).json({ user });
+    res.status(StatusCodes.CREATED).json({ user });
 };
 
 
