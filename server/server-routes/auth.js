@@ -5,17 +5,14 @@ const router = express.Router();
 
 router
     .route("/signin")
-    .get((req, res) => res.status(200).json("signin route"))
     .post(signin);
 
 router
     .route("/signup")
-    .get((req, res) => res.status(200).json("signup route"))
     .post(signup);
 
 router
     .route("/user/:id")
-    .get((req, res) => res.status(200).json("update user route"))
     .patch(updateUser);
 
 export default router;
