@@ -1,11 +1,22 @@
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
 
+class CustomApiError extends Error {
+    constructor(message) {
+        super(message)
+        this.statusCode = StatusCodes.BAD_REQUEST
+    }
+}
+
 
 // METHOD:      POST
 // ENDPOINT:    http://localhost:5000/api/v1/auth/signup
 const signup = async (req, res) => {
     const { name, email, password, lastName } = req.body;
+
+    if (!name || !email || !password) {
+        throw new CustomApiError("Missing value or values, please review all fields")
+    }
 
     const firstName = name.split(" ")[0];
     const surname = name.split(" ")[1];
