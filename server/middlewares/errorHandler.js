@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 
 const errorHandler = (err, req, res, next) => {
-    console.log(err.message);
+    console.log(err);
 
     const defaultError = {
         statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
@@ -19,7 +19,6 @@ const errorHandler = (err, req, res, next) => {
         defaultError.msg = `${Object.keys(err.keyValue).toString().toUpperCase()} has to be unique`
     }
 
-    // res.status(defaultError.statusCode).json({ msg: err })
     res.status(defaultError.statusCode).json({ msg: defaultError.msg })
 };
 
