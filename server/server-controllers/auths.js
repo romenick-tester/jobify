@@ -27,7 +27,14 @@ const signup = async (req, res) => {
         password
     });
 
-    res.status(StatusCodes.CREATED).json({ user });
+    const payload = {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        token: user.createJWT()
+    };
+
+    res.status(StatusCodes.CREATED).json(payload);
 };
 
 
