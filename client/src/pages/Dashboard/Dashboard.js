@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 
-const url = "http://localhost:5000";
 
 const Dashboard = () => {
     const fetchData = async () => {
         try {
-            const response = await fetch(url);
+            const response = await fetch("/api/v1");
             const data = await response.json();
 
             console.log(data);

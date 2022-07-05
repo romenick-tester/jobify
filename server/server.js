@@ -19,6 +19,10 @@ server.get("/", (req, res) => {
     res.json({ msg: "Welcome!" });
 });
 
+server.get("/api/v1", (req, res) => {
+    res.json({ msg: "Welcome!" });
+});
+
 server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/jobs", jobsRoutes);
 
