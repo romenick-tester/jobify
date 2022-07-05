@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import "express-async-errors";
+import cors from "cors";
 import notFound from "./middlewares/notFound.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import connectDB from "./db/connect.js";
@@ -11,10 +12,11 @@ dotenv.config();
 
 const server = express();
 
+server.use(cors());
 server.use(express.json());
 
 server.get("/", (req, res) => {
-    res.send("server is running...")
+    res.json({ msg: "Welcome!" });
 });
 
 server.use("/api/v1/auth", authRoutes);
