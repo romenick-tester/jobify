@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Logo } from "../../components";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import { FormRow, Alert } from "../../components";
