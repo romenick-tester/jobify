@@ -13,9 +13,9 @@ const initialState = {
 
 const Signup = () => {
     const [values, setValues] = useState(initialState);
-    // use global state and useNavigate
+    const { name, email, password, isMember } = values;
 
-    const { isLoading, alertOn, alertType, alertText, displayAlert } = useAppContext();
+    const { isLoading, alertOn, alertType, alertText, displayAlert, signinUser, signupUser } = useAppContext();
 
     const toggleForm = () => {
         setValues({ ...values, name: "", isMember: !values.isMember });
@@ -27,17 +27,17 @@ const Signup = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        const { name, email, password, isMember } = values;
 
         if (!email || !password || (!isMember && !name)) {
             displayAlert("danger", "Field is empty!")
             return
         } else {
-            displayAlert("success", "Signup success!")
             if (!name) {
-                console.log({ email: values.email, password: values.password });
+                displayAlert("success", "Signin success!")
+                signinUser({ email, password });
             } else {
-                console.log({ name: values.name, email: values.email, password: values.password });
+                displayAlert("success", "Signup success!")
+                signupUser({ name, email, password });
             }
         }
 
@@ -49,11 +49,11 @@ const Signup = () => {
                 <Logo />
                 <h3>{values.isMember ? "Sign In" : "Sign Up"}</h3>
                 {alertOn && <Alert type={alertType} msg={alertText} />}
-                {!values.isMember && (
+                {!isMember && (
                     <FormRow
                         name="name"
                         type="text"
-                        value={values.name}
+                        value={name}
                         handleChange={handleChange}
                         labelText="enter your name"
                     />
@@ -61,22 +61,22 @@ const Signup = () => {
                 <FormRow
                     name="email"
                     type="text"
-                    value={values.email}
+                    value={email}
                     handleChange={handleChange}
                     labelText="enter your email"
                 />
                 <FormRow
                     name="password"
                     type="password"
-                    value={values.password}
+                    value={password}
                     handleChange={handleChange}
                     labelText="enter a password"
                 />
-                <button type="submit" className="btn btn-block">submit</button>
+                <button type="submit" className="btn btn-block" disabled={isLoading}>submit</button>
                 <p>
-                    {values.isMember ? "Not a member yet?" : "Already a member?"}
+                    {isMember ? "Not a member yet?" : "Already a member?"}
                     <button type="button" onClick={toggleForm} className="member-btn">
-                        {values.isMember ? "Sign-up" : "Sign-in"}
+                        {isMember ? "Sign-up" : "Sign-in"}
                     </button>
                 </p>
             </form>
