@@ -29,8 +29,11 @@ const signup = async (req, res) => {
 
     const payload = {
         id: user._id,
-        name: user.name,
-        email: user.email,
+        user: {
+            name: user.name,
+            email: user.email,
+        },
+        location: user.location,
         token: user.createJWT()
     };
 
@@ -39,11 +42,11 @@ const signup = async (req, res) => {
 
 
 // METHOD:      POST
-// ENDPOINT:    http://localhost:5000/api/v1/auth/signup
+// ENDPOINT:    http://localhost:5000/api/v1/auth/signin
 const signin = (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password);
-    res.status(200).json("signin route");
+
+    res.status(200).json({ email, password });
 };
 
 

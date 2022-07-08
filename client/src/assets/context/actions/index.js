@@ -1,7 +1,8 @@
-import { SHOW_ALERT } from "../constants";
+import showAlert from "./alertActions";
+import { signin, signup } from "./authActions";
 
-const showAlert = () => {
-
-};
-
-export { showAlert }
+export {
+    showAlert,
+    signin,
+    signup
+}

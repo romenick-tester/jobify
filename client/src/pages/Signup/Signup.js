@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Logo } from "../../components";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import { FormRow, Alert } from "../../components";
@@ -33,14 +33,13 @@ const Signup = () => {
             return
         } else {
             if (!name) {
-                displayAlert("success", "Signin success!")
                 signinUser({ email, password });
+                displayAlert("success", "Signin success!")
             } else {
-                displayAlert("success", "Signup success!")
                 signupUser({ name, email, password });
+                displayAlert("success", "Signup success!")
             }
         }
-
     };
 
     return (

@@ -4,13 +4,27 @@ const authReducer = (state, action) => {
     const { payload, type } = action;
     switch (type) {
         case AUTH_SIGNUP_REQUEST:
-            return {};
+            return {
+                ...state,
+                isLoading: true
+            };
 
         case AUTH_SIGNUP_SUCCESS:
-            return {};
+            return {
+                ...state,
+                isLoading: false,
+                user: payload.user,
+                userLocation: payload.location,
+                jobLocation: payload.location,
+                token: payload.token
+            };
 
         case AUTH_SIGNUP_FAIL:
-            return {};
+            return {
+                ...state,
+                isLoading: false,
+                ...payload,
+            };
 
         default:
             return state;

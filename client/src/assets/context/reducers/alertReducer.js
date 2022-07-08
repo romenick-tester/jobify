@@ -1,12 +1,6 @@
 import { SHOW_ALERT, CLEAR_ALERT } from "../constants";
 
-const alertInitialState = {
-    alertOn: false,
-    alertText: "Ooops",
-    alertType: "danger",
-}
-
-const alertReducer = (state = alertInitialState, action) => {
+const alertReducer = (state, action) => {
     const { payload, type } = action;
     switch (type) {
         case SHOW_ALERT:
