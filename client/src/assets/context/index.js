@@ -1,45 +1,35 @@
-import React, { useReducer, useContext, createContext } from "react";
-import { alertReducer, authReducer } from "./reducers";
+import React, { useContext, createContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlert, signin, signup } from "./actions";
+
 
 const AppContext = createContext();
 
-const authInitialState = {
-    isLoading: false,
-    user: {},
-    userLocation: "",
-    jobLocation: "",
-    token: null
-};
-
-const alertInitialState = {
-    alertOn: false,
-    alertText: "Ooops",
-    alertType: "danger",
-};
-
 const AppProvider = ({ children }) => {
-    const [alertState, alertDispatch] = useReducer(alertReducer, alertInitialState);
-    const [authState, authDispatch] = useReducer(authReducer, authInitialState);
+
+    const dispatch = useDispatch();
+
+    const auths = useSelector(state => state.auths);
+    const alert = useSelector(state => state.alert);
+
+    const userSignin = (signinData) => {
+        dispatch(signin(signinData))
+    };
+
+    const userSignup = (signupData) => {
+        dispatch(signup(signupData))
+    };
 
     const displayAlert = (type, msg) => {
-        showAlert(alertDispatch, { type, msg });
-    };
-
-    const signinUser = (formData) => {
-        signin(authDispatch, formData);
-    };
-
-    const signupUser = (formData) => {
-        signup(authDispatch, formData);
+        dispatch(showAlert(type, msg));
     };
 
     const values = {
-        ...alertState,
-        ...authState,
+        alert,
+        auths,
         displayAlert,
-        signupUser,
-        signinUser
+        userSignin,
+        userSignup
     };
 
     return <AppContext.Provider value={{ ...values }}> {children} </AppContext.Provider>

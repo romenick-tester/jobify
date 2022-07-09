@@ -1,6 +1,16 @@
 import { AUTH_SIGNUP_REQUEST, AUTH_SIGNUP_SUCCESS, AUTH_SIGNUP_FAIL } from "../constants";
 
-const authReducer = (state, action) => {
+
+const authInitialState = {
+    isLoading: false,
+    user: {},
+    userLocation: "",
+    jobLocation: "",
+    token: null,
+    error: null
+};
+
+const authReducer = (state = authInitialState, action) => {
     const { payload, type } = action;
     switch (type) {
         case AUTH_SIGNUP_REQUEST:
@@ -23,7 +33,7 @@ const authReducer = (state, action) => {
             return {
                 ...state,
                 isLoading: false,
-                ...payload,
+                error: payload
             };
 
         default:

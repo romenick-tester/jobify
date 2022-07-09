@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Logo } from "../../components";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import { FormRow, Alert } from "../../components";
@@ -15,7 +15,7 @@ const Signup = () => {
     const [values, setValues] = useState(initialState);
     const { name, email, password, isMember } = values;
 
-    const { isLoading, alertOn, alertType, alertText, displayAlert, signinUser, signupUser } = useAppContext();
+    const { isLoading, alertOn, alertType, alertText, displayAlert, signinUser, signupUser, error } = useAppContext();
 
     const toggleForm = () => {
         setValues({ ...values, name: "", isMember: !values.isMember });
@@ -29,8 +29,7 @@ const Signup = () => {
         e.preventDefault();
 
         if (!email || !password || (!isMember && !name)) {
-            displayAlert("danger", "Field is empty!")
-            return
+            displayAlert("danger", "Field is empty!");
         } else {
             if (!name) {
                 signinUser({ email, password });
