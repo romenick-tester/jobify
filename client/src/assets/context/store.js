@@ -1,4 +1,4 @@
-import { configureStore, applyMiddleware, combineReducers } from "@reduxjs/toolkit";
+import { legacy_createStore as createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
@@ -6,17 +6,26 @@ import {
     authReducer
 } from "./reducers";
 
-const initialState = {};
+const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+const token = localStorage.getItem("token") || "";
+const location = localStorage.getItem("location") || "";
 
-const reducers = {
-    reducer: combineReducers({
-        alert: alertReducer,
-        auth: authReducer
-    })
-}
+const initialState = {
+    auth: {
+        user,
+        token,
+        userLocation: location,
+        jobLocation: location
+    }
+};
+
+const reducers = combineReducers({
+    alert: alertReducer,
+    auth: authReducer
+})
 
 const middlewares = [thunk];
 
-const store = configureStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middlewares)));
+const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middlewares)));
 
 export default store;

@@ -31,6 +31,7 @@ const signup = async (req, res) => {
         id: user._id,
         user: {
             name: user.name,
+            surname: user.lastName,
             email: user.email,
         },
         location: user.location,
