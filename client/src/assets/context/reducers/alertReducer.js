@@ -3,8 +3,8 @@ import { SHOW_ALERT, CLEAR_ALERT } from "../constants";
 
 const alertInitialState = {
     alertOn: false,
-    alertText: "Ooops",
-    alertType: "danger",
+    alertText: "",
+    alertType: "",
 };
 
 const alertReducer = (state = alertInitialState, action) => {
@@ -24,7 +24,7 @@ const alertReducer = (state = alertInitialState, action) => {
                 alertOn: false,
                 alertType: "",
                 alertText: ""
-            }
+            };
 
         default:
             return state;

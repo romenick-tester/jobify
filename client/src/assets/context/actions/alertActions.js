@@ -1,11 +1,8 @@
 import { SHOW_ALERT, CLEAR_ALERT } from "../constants";
 
-const displayAlert = (dispatch, { type = "danger", msg }) => {
-    dispatch({ type: SHOW_ALERT, payload: { type, msg } });
-    clearAlert(dispatch);
-};
+const displayAlert = (alertType, alertText) => (dispatch) => {
+    dispatch({ type: SHOW_ALERT, payload: { type: alertType, msg: alertText } });
 
-const clearAlert = (dispatch) => {
     setTimeout(() => {
         dispatch({ type: CLEAR_ALERT });
     }, 3000);

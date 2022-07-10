@@ -2,8 +2,8 @@ import { AUTH_SIGNUP_REQUEST, AUTH_SIGNUP_SUCCESS, AUTH_SIGNUP_FAIL } from "../c
 
 
 const authInitialState = {
-    isLoading: false,
-    user: {},
+    loading: false,
+    user: null,
     userLocation: "",
     jobLocation: "",
     token: null,
@@ -16,13 +16,13 @@ const authReducer = (state = authInitialState, action) => {
         case AUTH_SIGNUP_REQUEST:
             return {
                 ...state,
-                isLoading: true
+                loading: true
             };
 
         case AUTH_SIGNUP_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                loading: false,
                 user: payload.user,
                 userLocation: payload.location,
                 jobLocation: payload.location,
@@ -32,7 +32,7 @@ const authReducer = (state = authInitialState, action) => {
         case AUTH_SIGNUP_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                loading: false,
                 error: payload
             };
 

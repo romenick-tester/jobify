@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Logo } from "../../components";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import { FormRow, Alert } from "../../components";
-import { useAppContext } from "../../assets/context";
+import { useDispatch, useSelector } from "react-redux";
+import { showAlert, signin, signup } from "../../assets/context/actions";
 
 const initialState = {
     name: "",
@@ -15,7 +17,28 @@ const Signup = () => {
     const [values, setValues] = useState(initialState);
     const { name, email, password, isMember } = values;
 
-    const { isLoading, alertOn, alertType, alertText, displayAlert, signinUser, signupUser, error } = useAppContext();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const alert = useSelector(state => state.alert);
+    const { alertOn, alertType, alertText } = alert;
+
+    const auth = useSelector(state => state.auth);
+    const { loading, error, user } = auth;
+
+    useEffect(() => {
+        if (error) {
+            dispatch(showAlert(error.type, error.msg));
+        }
+    }, [dispatch, error]);
+
+    useEffect(() => {
+        if (user) {
+            setTimeout(() => {
+                navigate("/");
+            }, 3100)
+        }
+    }, [user, navigate]);
 
     const toggleForm = () => {
         setValues({ ...values, name: "", isMember: !values.isMember });
@@ -29,14 +52,12 @@ const Signup = () => {
         e.preventDefault();
 
         if (!email || !password || (!isMember && !name)) {
-            displayAlert("danger", "Field is empty!");
+            dispatch(showAlert("danger", "field is missing!"))
         } else {
             if (!name) {
-                signinUser({ email, password });
-                displayAlert("success", "Signin success!")
+                dispatch(signin({ email, password }));
             } else {
-                signupUser({ name, email, password });
-                displayAlert("success", "Signup success!")
+                dispatch(signup({ name, email, password }));
             }
         }
     };
@@ -70,7 +91,7 @@ const Signup = () => {
                     handleChange={handleChange}
                     labelText="enter a password"
                 />
-                <button type="submit" className="btn btn-block" disabled={isLoading}>submit</button>
+                <button type="submit" className="btn btn-block" disabled={loading}>submit</button>
                 <p>
                     {isMember ? "Not a member yet?" : "Already a member?"}
                     <button type="button" onClick={toggleForm} className="member-btn">

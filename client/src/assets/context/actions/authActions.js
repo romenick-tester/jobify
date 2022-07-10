@@ -1,7 +1,8 @@
 import { AUTH_SIGNUP_REQUEST, AUTH_SIGNUP_SUCCESS, AUTH_SIGNUP_FAIL } from "../constants";
+import showAlert from "./alertActions";
 import axios from "axios";
 
-const signin = async (dispatch, formData) => {
+const signin = (formData) => async (dispatch) => {
     // try {
     //     dispatch({ type: AUTH_SIGNIN_REQUEST });
 
@@ -23,7 +24,7 @@ const signin = async (dispatch, formData) => {
     // }
 };
 
-const signup = async (dispatch, formData) => {
+const signup = (formData) => async (dispatch) => {
     dispatch({ type: AUTH_SIGNUP_REQUEST });
     try {
         const config = {
@@ -36,13 +37,14 @@ const signup = async (dispatch, formData) => {
         const { user, token, location } = data;
 
         dispatch({ type: AUTH_SIGNUP_SUCCESS, payload: { user, location, token } });
+
+        dispatch(showAlert("success", "New user created! Redirecting..."))
     } catch (err) {
-        console.error(err.response);
         dispatch({
             type: AUTH_SIGNUP_FAIL,
             payload: {
-                type: err.response ? err.response.data.type : "danger",
-                msg: err.response ? err.response.data.msg : err.message
+                type: "danger",
+                msg: err.response && err.response.data ? err.response.data.msg : err.message
             }
         });
     }
