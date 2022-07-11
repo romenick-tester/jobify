@@ -9,12 +9,12 @@ const App = () => {
         <>
             <Nav>
                 <Link to="/">dashboard</Link>
-                <Link to="/signup">sign-up</Link>
+                <Link to="/auth">sign-up</Link>
                 <Link to="/landing">landing</Link>
             </Nav>
             <Routes>
                 <Route path="/" element={<Pages.Dashboard />} />
-                <Route path="/signup" element={<Pages.Signup />} />
+                <Route path="/auth" element={<Pages.Auth />} />
                 <Route path="/landing" element={<Pages.Landing />} />
                 <Route path="*" element={<Pages.Error />} />
             </Routes>

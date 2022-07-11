@@ -13,7 +13,7 @@ const initialState = {
     isMember: null
 };
 
-const Signup = () => {
+const Auth = () => {
     const [values, setValues] = useState(initialState);
     const { name, email, password, isMember } = values;
 
@@ -103,4 +103,4 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+export default Auth;
