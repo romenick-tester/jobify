@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import "express-async-errors";
 import cors from "cors";
+import morgan from "morgan";
 import notFound from "./middlewares/notFound.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import connectDB from "./db/connect.js";
@@ -11,6 +12,10 @@ import jobsRoutes from "./server-routes/jobs.js";
 dotenv.config();
 
 const server = express();
+
+if (process.env.NODE_ENV !== "production") {
+    server.use(morgan("dev"));
+}
 
 server.use(cors());
 server.use(express.json());
