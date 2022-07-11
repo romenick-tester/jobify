@@ -4,7 +4,7 @@ import { Logo } from "../../components";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import { FormRow, Alert } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlert, signin, signup } from "../../assets/context/actions";
+import { showAlert, authUser } from "../../assets/context/actions";
 
 const initialState = {
     name: "",
@@ -55,9 +55,17 @@ const Auth = () => {
             dispatch(showAlert("danger", "field is missing!"))
         } else {
             if (!name) {
-                dispatch(signin({ email, password }));
+                dispatch(authUser({
+                    formData: { email, password },
+                    endpoint: "signin",
+                    alertText: "User matched! Redirecting..."
+                }));
             } else {
-                dispatch(signup({ name, email, password }));
+                dispatch(authUser({
+                    formData: { name, email, password },
+                    endpoint: "signup",
+                    alertText: "User created! Redirecting..."
+                }));
             }
         }
     };

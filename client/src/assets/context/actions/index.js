@@ -1,8 +1,7 @@
 import showAlert from "./alertActions";
-import { signin, signup } from "./authActions";
+import { authUser } from "./authActions";
 
 export {
     showAlert,
-    signin,
-    signup
+    authUser
 }
