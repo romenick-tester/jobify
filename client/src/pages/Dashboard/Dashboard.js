@@ -1,27 +1,13 @@
-import React, { useEffect } from "react";
+import AddJob from "./AddJob";
+import AllJobs from "./AllJobs";
+import Profile from "./Profile";
+import Stats from "./Stats";
+import SharedLayout from "./SharedLayout";
 
-
-const Dashboard = () => {
-    const fetchData = async () => {
-        try {
-            const response = await fetch("/api/v1");
-            const data = await response.json();
-
-            console.log(data);
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    return (
-        <>
-            <h4>Dashboard component</h4>
-        </>
-    )
+export {
+    AddJob,
+    AllJobs,
+    Profile,
+    Stats,
+    SharedLayout
 }
-
-export default Dashboard;
