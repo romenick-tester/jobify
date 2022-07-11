@@ -24,8 +24,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "PASSWORD is missing"],
         minlength: 6,
-        maxlength: 20,
-        select: false
+        maxlength: 20
     },
     lastName: {
         type: String,
@@ -49,5 +48,9 @@ UserSchema.pre("save", async function () {
 UserSchema.methods.createJWT = function () {
     return JWT.sign({ userID: this._id }, process.env.JWT_SECRET, { expiresIn: "1d" })
 };
+
+UserSchema.methods.comparePassword = async function (inputPassword) {
+    return await bcrypt.compare(inputPassword, this.password);
+}
 
 export default mongoose.model("User", UserSchema);

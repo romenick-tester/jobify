@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError } from "../errors/index.js";
+import { BadRequestError, AuthError } from "../errors/index.js";
 
 // METHOD:      POST
 // ENDPOINT:    http://localhost:5000/api/v1/auth/signup
@@ -30,8 +30,7 @@ const signup = async (req, res) => {
     const payload = {
         id: user._id,
         user: {
-            name: user.name,
-            surname: user.lastName,
+            name: user.name + " " + user.lastName,
             email: user.email,
         },
         location: user.location,
@@ -44,10 +43,34 @@ const signup = async (req, res) => {
 
 // METHOD:      POST
 // ENDPOINT:    http://localhost:5000/api/v1/auth/signin
-const signin = (req, res) => {
+const signin = async (req, res) => {
     const { email, password } = req.body;
 
-    res.status(200).json({ email, password });
+    if (!email || !password) {
+        throw new BadRequestError("Please provide all values");
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        throw new AuthError("Invalid credentials");
+    }
+
+    const passwordMatched = await user.comparePassword(String(password));
+
+    if (!passwordMatched) {
+        throw new AuthError("Invalid credentials!");
+    }
+
+    const payload = {
+        user: {
+            name: user.name + " " + user.lastName,
+            email: user.email
+        },
+        location: user.location,
+        token: user.createJWT()
+    }
+    res.status(StatusCodes.OK).json(payload);
 };
 
 
