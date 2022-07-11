@@ -1,6 +1,13 @@
-import { AUTH_SIGNUP_REQUEST, AUTH_SIGNUP_SUCCESS, AUTH_SIGNUP_FAIL } from "../constants";
-import showAlert from "./alertActions";
 import axios from "axios";
+import showAlert from "./alertActions";
+import {
+    AUTH_SIGNUP_REQUEST,
+    AUTH_SIGNUP_SUCCESS,
+    AUTH_SIGNUP_FAIL,
+    AUTH_SIGNIN_REQUEST,
+    AUTH_SIGNIN_SUCCESS,
+    AUTH_SIGNIN_FAIL
+} from "../constants";
 
 const addUserToLocalStorage = (user, token, location) => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -15,25 +22,31 @@ const removeUserFromLocalStorage = () => {
 }
 
 const signin = (formData) => async (dispatch) => {
-    // try {
-    //     dispatch({ type: AUTH_SIGNIN_REQUEST });
+    dispatch({ type: AUTH_SIGNIN_REQUEST });
+    try {
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
 
-    //     const config = {
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         }
-    //     };
+        const { data } = await axios.post("/api/v1/auth/signin", formData, config);
+        const { user, token, location } = data;
 
-    //     const { data } = await axios.post("/api/v1/auth/signin", formData, config);
+        dispatch({ type: AUTH_SIGNIN_SUCCESS, payload: { user, location, token } });
 
-    //     if (data) {
-    //         console.log(data);
-    //     };
+        addUserToLocalStorage(user, token, location);
 
-    //     dispatch({ type: AUTH_SIGNIN_SUCCESS, payload: data });
-    // } catch (err) {
-    //     dispatch({ type: AUTH_SIGNIN_FAIL, payload: { type: "danger", msg: err.message } });
-    // }
+        dispatch(showAlert("success", "User matched! Redirecting..."))
+    } catch (err) {
+        dispatch({
+            type: AUTH_SIGNIN_FAIL,
+            payload: {
+                type: "danger",
+                msg: err.response && err.response.data ? err.response.data.msg : err.message
+            }
+        });
+    }
 };
 
 const signup = (formData) => async (dispatch) => {
