@@ -1,19 +1,13 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import styled from "styled-components";
+import { Routes, Route } from "react-router-dom";
 import * as Pages from "./pages";
 // eslint-disable-next-line
-import { AllJobs, Profile, SharedLayout, Stats, AddJob } from "./pages/Dashboard/Dashboard";
+import * as Dashboard from "./pages/Dashboard/Dashboard";
 
 
 const App = () => {
     return (
         <>
-            <Nav>
-                <Link to="/">dashboard</Link>
-                <Link to="/auth">sign-up</Link>
-                <Link to="/landing">landing</Link>
-            </Nav>
             <Routes>
                 <Route path="/" element={<div>dashboard</div>} />
                 <Route path="/auth" element={<Pages.Auth />} />
@@ -23,11 +17,5 @@ const App = () => {
         </>
     )
 }
-
-const Nav = styled.nav`
-    >*:not(:last-child) {
-        margin-right: 1rem;
-    }
-`
 
 export default App;
