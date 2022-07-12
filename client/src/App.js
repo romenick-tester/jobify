@@ -9,7 +9,12 @@ const App = () => {
     return (
         <>
             <Routes>
-                <Route path="/" element={<div>dashboard</div>} />
+                <Route path="/">
+                    <Route path="stats" element={<Dashboard.Stats />} />
+                    <Route path="alljobs" element={<Dashboard.AllJobs />} />
+                    <Route path="addjob" element={<Dashboard.AddJob />} />
+                    <Route path="profile" element={<Dashboard.Profile />} />
+                </Route>
                 <Route path="/auth" element={<Pages.Auth />} />
                 <Route path="/landing" element={<Pages.Landing />} />
                 <Route path="*" element={<Pages.Error />} />
