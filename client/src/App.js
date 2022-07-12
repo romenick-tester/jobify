@@ -9,8 +9,8 @@ const App = () => {
     return (
         <>
             <Routes>
-                <Route path="/">
-                    <Route path="stats" element={<Dashboard.Stats />} />
+                <Route path="/" element={<Dashboard.SharedLayout />}>
+                    <Route index element={<Dashboard.Stats />} />
                     <Route path="alljobs" element={<Dashboard.AllJobs />} />
                     <Route path="addjob" element={<Dashboard.AddJob />} />
                     <Route path="profile" element={<Dashboard.Profile />} />
