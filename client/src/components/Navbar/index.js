@@ -1,0 +1,13 @@
+import React from "react";
+import Wrapper from "../../assets/wrappers/Navbar";
+
+
+const Navbar = () => {
+    return (
+        <Wrapper>
+            <h1>navbar component</h1>
+        </Wrapper>
+    )
+}
+
+export default Navbar;
