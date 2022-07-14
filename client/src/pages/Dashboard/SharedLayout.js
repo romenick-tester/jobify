@@ -1,21 +1,33 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/SharedLayout";
 import ProtectedRoute from "../ProtectedRoute";
+import { Navbar, BigSidebar, SmallSidebar } from "../../components";
 
 
 const SharedLayout = () => {
+    return <ProtectedRoute>
+        <Wrapper>
+            <main className="dashboard">
+                <SmallSidebar />
+                <BigSidebar />
+                <div>
+                    <Navbar />
+                    <MainView>
+                        <Outlet />
+                    </MainView>
+                </div>
+            </main>
+        </Wrapper>
+    </ProtectedRoute>
+}
+
+const MainView = ({ children }) => {
     return (
-        <ProtectedRoute>
-            <Wrapper>
-                <nav>
-                    <Link to="alljobs">all jobs</Link>
-                    <Link to="addjob">add job</Link>
-                </nav>
-                <Outlet />
-            </Wrapper>
-        </ProtectedRoute>
+        <div className="dashboard-page">
+            {children}
+        </div>
     )
-};
+}
 
 export default SharedLayout;
