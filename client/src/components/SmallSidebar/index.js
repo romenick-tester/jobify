@@ -1,10 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import { useAppContext } from "../../assets/context";
 import { links } from "../../assets";
 import Wrapper from "../../assets/wrappers/SmallSidebar";
-import Logo from "../Logo";
+import { NavLinks, Logo } from "..";
 
 
 const SmallSidebar = () => {
@@ -23,7 +22,7 @@ const SmallSidebar = () => {
                     <header>
                         <Logo />
                     </header>
-                    <div className="nav-links">nav links</div>
+                    <NavLinks links={links} toggleSidebar={toggleSidebar} />
                 </div>
             </div>
         </Wrapper>
