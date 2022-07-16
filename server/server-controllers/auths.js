@@ -76,7 +76,12 @@ const signin = async (req, res) => {
 
 // METHOD:      PUT
 // ENDPOINT:    http://localhost:5000/api/v1/auth/user/:id
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
+
+    const user = await User.findOne(req.user._id);
+
+    console.log(user);
+
     res.status(200).json("update user route");
 };
 

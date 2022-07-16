@@ -1,20 +1,25 @@
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import AuthError from "../errors/auth-error.js";
 
+dotenv.config();
 
 const auth = async (req, res, next) => {
-    const authHeaders = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
-    if (!authHeaders) {
-        throw new AuthError("Unauthorized access!")
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
+        throw new AuthError("Authentication failed!")
     }
 
-    const reqToken = authHeaders.split(" ")[1];
+    try {
+        const decoded = jwt.verify(authHeader.split(" ")[1], process.env.JWT_SECRET);
 
-    console.log(reqToken);
-    // req.user = { id: decodedToken.id };
+        req.user = { _id: decoded.userID };
 
-    next();
+        next();
+    } catch (err) {
+        throw new AuthError("Authentication failed!")
+    }
 }
 
 export default auth;
