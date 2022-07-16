@@ -1,12 +1,23 @@
 import React from "react";
+import { useAppContext } from "../../assets/context";
+import { links } from "../../assets";
+import { NavLinks, Logo } from "..";
 import Wrapper from "../../assets/wrappers/BigSidebar";
 
 
 const BigSidebar = () => {
+    const { sidebar, toggleSidebar } = useAppContext();
+
     return (
         <Wrapper>
-            <h3>big sidebar</h3>
-            <h2>component</h2>
+            <div className={sidebar ? "sidebar-container" : "sidebar-container show-sidebar"}>
+                <div className="content">
+                    <header>
+                        <Logo />
+                    </header>
+                    <NavLinks links={links} toggleSidebar={toggleSidebar} />
+                </div>
+            </div>
         </Wrapper>
     )
 }
