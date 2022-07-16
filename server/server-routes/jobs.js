@@ -13,7 +13,7 @@ router.route("/")
     .post(createJob)
     .get(getAllJobs)
 
-router.route("/stat")
+router.route("/stats")
     .get(showStat)
 
 router.route("/:id")

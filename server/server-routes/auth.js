@@ -1,4 +1,5 @@
 import express from "express";
+import auth from "../middlewares/auth.js";
 import { signin, signup, updateUser } from "../server-controllers/auths.js";
 
 const router = express.Router();
@@ -12,7 +13,7 @@ router
     .post(signup);
 
 router
-    .route("/user/:id")
-    .patch(updateUser);
+    .route("/user")
+    .patch(auth, updateUser);
 
 export default router;
