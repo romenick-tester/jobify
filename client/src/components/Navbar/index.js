@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import Wrapper from "../../assets/wrappers/Navbar";
+import { useSelector, useDispatch } from "react-redux";
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from "react-icons/fa";
-import Logo from "../Logo";
 import { useAppContext } from "../../assets/context";
+import { logoutUser } from "../../assets/context/actions";
+import Wrapper from "../../assets/wrappers/Navbar";
+import Logo from "../Logo";
 
 const Navbar = () => {
     const [showDropdown, setShowDropdown] = useState(false);
 
+    const dispatch = useDispatch();
+
     const { toggleSidebar } = useAppContext();
+    const { user } = useSelector(state => state.auth);
 
     return (
         <Wrapper>
@@ -22,11 +27,14 @@ const Navbar = () => {
                 <div className="btn-container">
                     <button className="btn" type="button" onClick={() => setShowDropdown(!showDropdown)}>
                         <FaUserCircle />
-                        John
+                        {user && user.name ? user.name.split(" ")[0] : "User"}
                         <FaCaretDown />
                     </button>
                     <div className={`dropdown ${showDropdown && "show-dropdown"}`}>
-                        <button className="dropdown-btn" type="button">
+                        <button
+                            className="dropdown-btn"
+                            type="button"
+                            onClick={() => dispatch(logoutUser())}>
                             logout
                         </button>
                     </div>

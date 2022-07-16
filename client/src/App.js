@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import * as Pages from "./pages";
 // eslint-disable-next-line
-import * as Dashboard from "./pages/Dashboard/Dashboard";
+import * as Dashboard from "./pages/Dashboard";
 
 
 const App = () => {

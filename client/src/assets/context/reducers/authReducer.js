@@ -1,7 +1,8 @@
 import {
     USER_AUTH_REQUEST,
     USER_AUTH_SUCCESS,
-    USER_AUTH_FAIL
+    USER_AUTH_FAIL,
+    USER_LOGOUT
 } from "../constants";
 
 
@@ -44,6 +45,9 @@ const authReducer = (state = authInitialState, action) => {
                 token: null,
                 error: payload
             };
+
+        case USER_LOGOUT:
+            return { ...authInitialState };
 
         default:
             return state;

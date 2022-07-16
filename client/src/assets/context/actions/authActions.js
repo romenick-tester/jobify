@@ -3,20 +3,21 @@ import showAlert from "./alertActions";
 import {
     USER_AUTH_REQUEST,
     USER_AUTH_SUCCESS,
-    USER_AUTH_FAIL
+    USER_AUTH_FAIL,
+    USER_LOGOUT
 } from "../constants";
 
 const addUserToLocalStorage = (user, token, location) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("location", JSON.stringify(location));
-}
+};
 
 const removeUserFromLocalStorage = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("location");
-}
+};
 
 const authUser = ({ formData, endpoint, alertText }) => async (dispatch) => {
     dispatch({ type: USER_AUTH_REQUEST });
@@ -45,6 +46,12 @@ const authUser = ({ formData, endpoint, alertText }) => async (dispatch) => {
             }
         });
     }
+};
+
+const logoutUser = () => (dispatch) => {
+    dispatch({ type: USER_LOGOUT });
+
+    removeUserFromLocalStorage();
 }
 
-export { authUser };
+export { authUser, logoutUser };

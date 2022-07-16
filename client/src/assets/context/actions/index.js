@@ -1,7 +1,8 @@
 import showAlert from "./alertActions";
-import { authUser } from "./authActions";
+import { authUser, logoutUser } from "./authActions";
 
 export {
     showAlert,
-    authUser
+    authUser,
+    logoutUser
 }
