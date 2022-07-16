@@ -77,8 +77,26 @@ const signin = async (req, res) => {
 // METHOD:      PUT
 // ENDPOINT:    http://localhost:5000/api/v1/auth/user/:id
 const updateUser = async (req, res) => {
+    const { email, name, lastName, location } = req.body;
 
-    const user = await User.findOne(req.user._id);
+    if (!email || !name || !lastName || !location) {
+        throw new Error("Please provide required values!");
+    }
+
+    const checkEmail = await User.findOne({ email });
+
+    if (checkEmail) {
+        throw new BadRequestError("Email already exist!");
+    }
+
+    const user = await User.findOne({ _id: req.user._id }).select("-password");
+
+    user.email = req.body.email || user.email;
+    user.name = req.body.name || user.name;
+    user.lastName = req.body.lastName || user.lastName;
+    user.location = req.body.location || user.location;
+
+    await user.save();
 
     console.log(user);
 
