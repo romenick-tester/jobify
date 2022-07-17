@@ -6,7 +6,8 @@ import Wrapper from "../../assets/wrappers/DashboardFormPage";
 
 const Profile = () => {
     const { alertOn } = useSelector(state => state.alert);
-    const { loading, user, userLocation } = useSelector(state => state.auth);
+    const { user, userLocation } = useSelector(state => state.auth);
+    const { updating } = useSelector(state => state.user);
 
     const dispatch = useDispatch();
 
@@ -59,8 +60,8 @@ const Profile = () => {
                         value={location}
                         handleChange={(e) => setLocation(e.target.value)}
                     />
-                    <button className="btn btn-block" type="submit" disabled={loading}>
-                        {loading ? "Please Wait..." : "save changes"}
+                    <button className="btn btn-block" type="submit" disabled={updating}>
+                        {updating ? "Please Wait..." : "save changes"}
                     </button>
                 </div>
             </form>

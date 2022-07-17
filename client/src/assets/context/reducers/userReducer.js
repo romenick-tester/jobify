@@ -6,9 +6,7 @@ import {
 
 const userInitialState = {
     updating: false,
-    user: null,
-    userLocation: "",
-    token: null,
+    success: false,
     error: null
 }
 
@@ -20,7 +18,7 @@ const userReducer = (state = userInitialState, action) => {
             return { ...state, updating: true };
 
         case UPDATE_CURRENT_USER_SUCCESS:
-            return { ...state, updating: false, ...payload, error: null };
+            return { ...state, updating: false, success: true, error: null };
 
         case UPDATE_CURRENT_USER_FAIL:
             return { ...userInitialState, error: payload };

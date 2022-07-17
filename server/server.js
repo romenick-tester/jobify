@@ -8,6 +8,7 @@ import errorHandler from "./middlewares/errorHandler.js";
 import connectDB from "./db/connect.js";
 import authRoutes from "./server-routes/auth.js";
 import jobsRoutes from "./server-routes/jobs.js";
+import usersRoutes from "./server-routes/users.js";
 import auth from "./middlewares/auth.js";
 
 dotenv.config();
@@ -31,6 +32,7 @@ server.get("/api/v1", (req, res) => {
 
 server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/jobs", auth, jobsRoutes);
+server.use("/api/v1/users", usersRoutes);
 
 server.use(notFound);
 server.use(errorHandler);

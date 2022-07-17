@@ -1,6 +1,6 @@
 import express from "express";
 import auth from "../middlewares/auth.js";
-import { signin, signup, updateUser } from "../server-controllers/auths.js";
+import { signin, signup } from "../server-controllers/auths.js";
 
 const router = express.Router();
 
@@ -11,9 +11,5 @@ router
 router
     .route("/signup")
     .post(signup);
-
-router
-    .route("/user")
-    .patch(auth, updateUser);
 
 export default router;
