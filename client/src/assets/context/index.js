@@ -4,7 +4,7 @@ import React, { useContext, createContext, useState } from "react";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-    const [sidebar, setSidebar] = useState(true);
+    const [sidebar, setSidebar] = useState(false);
 
 
     const toggleSidebar = () => {
