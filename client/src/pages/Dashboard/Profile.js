@@ -37,6 +37,7 @@ const Profile = () => {
                     <FormRow
                         type="text"
                         name="name"
+                        placeHolder={user.name.split(" ")[0]}
                         value={name}
                         handleChange={(e) => setName(e.target.value)}
                     />
@@ -44,12 +45,14 @@ const Profile = () => {
                         labelText="last name"
                         type="text"
                         name="lastName"
+                        placeHolder={user.name.split(" ")[1]}
                         value={lastName}
                         handleChange={(e) => setLastName(e.target.value)}
                     />
                     <FormRow
                         type="email"
                         name="email"
+                        placeHolder={user.email}
                         value={email}
                         handleChange={(e) => setEmail(e.target.value)}
                     />
@@ -57,6 +60,7 @@ const Profile = () => {
                     <FormRow
                         type="text"
                         name="location"
+                        placeHolder="City, Country"
                         value={location}
                         handleChange={(e) => setLocation(e.target.value)}
                     />
