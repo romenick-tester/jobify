@@ -1475,7 +1475,7 @@ app.use('/api/v1/jobs', jobsRouter)
 - User.js
 - setup schema
 - name, email, password, lastName, location
-- all {type:String} -->
+- all {type:String} 
 
 #### Validate Email
 
@@ -3023,7 +3023,7 @@ const updateUser = async (currentUser) => {
   clearAlert()
 }
 ```
-
+-->
 ```js
 reducer.js
 if (action.type === UPDATE_USER_BEGIN) {

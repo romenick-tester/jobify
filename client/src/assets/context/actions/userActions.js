@@ -1,5 +1,6 @@
 import axios from "axios";
 import showAlert from "./alertActions";
+import { logoutUser } from "./authActions";
 import {
     UPDATE_CURRENT_USER_REQUEST,
     UPDATE_CURRENT_USER_SUCCESS,
@@ -19,15 +20,31 @@ const updateUser = (formData) => async (dispatch, getState) => {
     try {
         const { token } = getState().auth;
 
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            }
-        };
+        const authFetch = axios.create({
+            baseURL: "/api/v1"
+        });
 
-        const { data } = await axios.patch("/api/v1/users", formData, config);
-        const { user, location, token: token2 } = data;
+        authFetch.interceptors.request.use((config) => {
+            config.headers.common["Content-Type"] = "application/json";
+            config.headers.common["Authorization"] = `Bearer ${token}`;
+            return config;
+        }, error => {
+            return Promise.reject(error)
+        });
+
+        authFetch.interceptors.response.use((response) => {
+            return response;
+        }, error => {
+
+            if (error.response.status === 401) {
+                dispatch(logoutUser());
+            }
+
+            return Promise.reject(error)
+        });
+
+        const res = await authFetch.patch("/users", formData);
+        const { user, location, token: token2 } = res.data;
 
         addUserToLocalStorage(user, token2, location);
 
@@ -35,8 +52,12 @@ const updateUser = (formData) => async (dispatch, getState) => {
         dispatch({ type: USER_AUTH_SUCCESS, payload: { user, location, token: token2 } });
         dispatch(showAlert("success", "Profile successfully updated!"))
     } catch (err) {
-        console.log(err.response.data.msg);
         dispatch({ type: UPDATE_CURRENT_USER_FAIL });
+        if (err.response.status === 401) {
+            dispatch(showAlert("danger", "Not authorized!"));
+            return;
+        }
+        dispatch(showAlert("danger", err.response.data.msg || err.message));
     }
 }
 
