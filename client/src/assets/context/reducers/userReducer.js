@@ -26,6 +26,6 @@ const userReducer = (state = userInitialState, action) => {
         default:
             return state;
     }
-}
+};
 
 export default userReducer;

@@ -3096,7 +3096,6 @@ const updateUser = async (currentUser) => {
   clearAlert()
 }
 ```
--->
 #### Job Model
 
 - Job Model
@@ -3168,6 +3167,7 @@ const createJob = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ job })
 }
 ```
+-->
 
 #### Job State Values
 
