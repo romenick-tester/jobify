@@ -1,13 +1,19 @@
-
+import { StatusCodes } from "http-status-codes";
+import Job from "../models/Job.js";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createJob = async (req, res) => {
-    const data = req.body;
-    try {
-        console.log(data);
-        res.status(201).json("create job");
-    } catch (err) {
-        console.error(err.message);
+    const { position, company } = req.body;
+
+    if (!position || !company) {
+        throw new BadRequestError("Please provide all values")
     }
+
+    req.body.createdBy = req.user._id;
+
+    const job = await Job.create(req.body);
+
+    res.status(StatusCodes.CREATED).json({ job });
 };
 
 const updateJob = async (req, res) => {
