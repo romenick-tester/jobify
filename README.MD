@@ -3023,7 +3023,7 @@ const updateUser = async (currentUser) => {
   clearAlert()
 }
 ```
--->
+
 ```js
 reducer.js
 if (action.type === UPDATE_USER_BEGIN) {
@@ -3096,7 +3096,7 @@ const updateUser = async (currentUser) => {
   clearAlert()
 }
 ```
-
+-->
 #### Job Model
 
 - Job Model
