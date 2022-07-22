@@ -1,11 +1,7 @@
 import { legacy_createStore as createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import {
-    alertReducer,
-    authReducer,
-    userReducer
-} from "./reducers";
+import reducers from "./reducers";
 
 const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 const token = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null;
@@ -20,11 +16,6 @@ const initialState = {
     }
 };
 
-const reducers = combineReducers({
-    alert: alertReducer,
-    auth: authReducer,
-    user: userReducer
-})
 
 const middlewares = [thunk];
 

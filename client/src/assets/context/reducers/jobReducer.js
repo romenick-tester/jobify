@@ -16,7 +16,7 @@ const initialState = {
     status: "pending",
 };
 
-const createJobReducer = (state = initialState, action) => {
+const jobReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_JOB_REQUEST:
             return {};
@@ -32,4 +32,4 @@ const createJobReducer = (state = initialState, action) => {
     }
 }
 
-export default createJobReducer;
+export default jobReducer;

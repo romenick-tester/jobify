@@ -3167,7 +3167,6 @@ const createJob = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ job })
 }
 ```
--->
 
 #### Job State Values
 
@@ -3186,6 +3185,7 @@ const initialState = {
 }
 ```
 
+-->
 #### AddJob Page - Setup
 
 ```js
