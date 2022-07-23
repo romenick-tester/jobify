@@ -2,15 +2,24 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { FormRow, Alert } from "../../components";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
+import { useState } from "react";
 
 const AddJob = () => {
+    const [job, setJob] = useState({
+        position: "",
+        company: "",
+        jobLocation: ""
+    });
+
+    const { position, company, jobLocation } = job;
+
     const {
         isEditing,
         showAlert,
         displayAlert,
-        position,
-        company,
-        jobLocation,
+        // position,
+        // company,
+        // jobLocation,
         jobType,
         jobTypeOptions,
         status,
@@ -20,17 +29,19 @@ const AddJob = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (!position || !company || !jobLocation) {
+        if (!company || !position || !jobLocation) {
             displayAlert()
             return
         }
-        console.log("create job")
-    }
+        console.log(job);
+    };
 
     const handleJobInput = (e) => {
         const name = e.target.name
         const value = e.target.value
-        console.log(`${name}:${value}`)
+        setJob(prev => {
+            return { ...prev, [name]: value }
+        });
     }
 
     return (
