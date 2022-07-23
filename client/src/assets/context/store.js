@@ -13,6 +13,9 @@ const initialState = {
         token,
         userLocation: location,
         jobLocation: location
+    },
+    job: {
+        jobLocation: location
     }
 };
 

@@ -1,38 +1,45 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { FormRow, Alert } from "../../components";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
-import { useState } from "react";
+import { showAlert } from "../../assets/context/actions";
+import { FormRow, Alert } from "../../components";
 
 const AddJob = () => {
     const [job, setJob] = useState({
+        isEditing: false,
         position: "",
         company: "",
-        jobLocation: ""
-    });
-
-    const { position, company, jobLocation } = job;
-
-    const {
-        isEditing,
-        showAlert,
-        displayAlert,
-        // position,
-        // company,
-        // jobLocation,
         jobType,
         jobTypeOptions,
         status,
         statusOptions,
-    } = useSelector(state => state.job);
+    });
+
+    const { jobLocation: location } = useSelector(state => state.job);
+    const dispatch = useDispatch();
+
+    job.jobLocation = location;
+
+    const { alertOn } = useSelector(state => state.alert);
+
+    const {
+        isEditing,
+        position,
+        company,
+        jobType,
+        jobLocation,
+        jobTypeOptions,
+        statusOptions,
+        status } = job;
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         if (!company || !position || !jobLocation) {
-            displayAlert()
-            return
+            dispatch(showAlert("danger", "Please review all fields!"));
+            return;
         }
+
         console.log(job);
     };
 
@@ -48,7 +55,7 @@ const AddJob = () => {
         <Wrapper>
             <form className="form">
                 <h3>{isEditing ? "edit job" : "add job"} </h3>
-                {showAlert && <Alert />}
+                {alertOn && <Alert />}
 
                 {/* position */}
                 <div className="form-center">
