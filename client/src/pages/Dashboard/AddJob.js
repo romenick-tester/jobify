@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { showAlert } from "../../assets/context/actions";
-import { FormRow, Alert } from "../../components";
+import { FormRow, Alert, FormRowSelect } from "../../components";
 
 const AddJob = () => {
     const [job, setJob] = useState({
         isEditing: false,
         position: "",
         company: "",
-        jobType,
-        jobTypeOptions,
-        status,
-        statusOptions,
+        jobType: "full-time",
+        jobTypeOptions: ["full-time", "part-time", "intern", "remote", "temporary"],
+        status: "pending",
+        statusOptions: ["pending", "interview", "denied"],
     });
 
     const { jobLocation: location } = useSelector(state => state.job);
@@ -81,9 +81,20 @@ const AddJob = () => {
                         handleChange={handleJobInput}
                     />
                     {/* job type */}
-
+                    <FormRowSelect
+                        labelText="job type"
+                        name="jobType"
+                        value={jobType}
+                        handleChange={handleJobInput}
+                        list={jobTypeOptions}
+                    />
                     {/* job status */}
-
+                    <FormRowSelect
+                        name="status"
+                        value={status}
+                        handleChange={handleJobInput}
+                        list={statusOptions}
+                    />
                     <div className="btn-container">
                         <button
                             className="btn btn-block submit-btn"
