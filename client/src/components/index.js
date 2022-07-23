@@ -1,10 +1,11 @@
 import Logo from "./Logo";
-import FormRow from "./FormRow/FormRow";
-import Alert from "./Alert/Alert";
+import FormRow from "./FormRow";
+import Alert from "./Alert";
 import Navbar from "./Navbar";
 import BigSidebar from "./BigSidebar";
 import SmallSidebar from "./SmallSidebar";
 import NavLinks from "./NavLinks";
+import FormRowSelect from "./FormRowSelect";
 
 export {
     Logo,
@@ -13,5 +14,6 @@ export {
     Navbar,
     BigSidebar,
     SmallSidebar,
-    NavLinks
+    NavLinks,
+    FormRowSelect
 }

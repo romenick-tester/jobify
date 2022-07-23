@@ -3272,7 +3272,6 @@ const AddJob = () => {
 export default AddJob
 ```
 
--->
 #### Select Input
 
 ```js
@@ -3301,6 +3300,7 @@ return (
 )
 ```
 
+-->
 #### FormRowSelect
 
 - create FormRowSelect in components
