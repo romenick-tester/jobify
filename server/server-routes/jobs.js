@@ -1,4 +1,5 @@
 import express from "express";
+import auth from "../middlewares/auth.js";
 import {
     createJob,
     updateJob,
@@ -10,14 +11,14 @@ import {
 const router = express.Router();
 
 router.route("/")
-    .post(createJob)
-    .get(getAllJobs)
+    .post(auth, createJob)
+    .get(auth, getAllJobs)
 
 router.route("/stats")
-    .get(showStat)
+    .get(auth, showStat)
 
 router.route("/:id")
-    .delete(deleteJob)
-    .put(updateJob);
+    .delete(auth, deleteJob)
+    .put(auth, updateJob);
 
 export default router;

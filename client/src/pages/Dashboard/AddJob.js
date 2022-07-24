@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
-import { showAlert } from "../../assets/context/actions";
+import { showAlert, createJob } from "../../assets/context/actions";
 import { FormRow, Alert, FormRowSelect } from "../../components";
 
 const AddJob = () => {
@@ -12,13 +12,11 @@ const AddJob = () => {
         jobType: "full-time",
         jobTypeOptions: ["full-time", "part-time", "intern", "remote", "temporary"],
         status: "pending",
-        statusOptions: ["pending", "interview", "denied"],
+        statusOptions: ["pending", "interview", "declined"],
+        jobLocation: ""
     });
 
-    const { jobLocation: location } = useSelector(state => state.job);
     const dispatch = useDispatch();
-
-    job.jobLocation = location;
 
     const { alertOn } = useSelector(state => state.alert);
 
@@ -27,10 +25,10 @@ const AddJob = () => {
         position,
         company,
         jobType,
-        jobLocation,
         jobTypeOptions,
+        status,
         statusOptions,
-        status } = job;
+        jobLocation } = job;
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -40,7 +38,7 @@ const AddJob = () => {
             return;
         }
 
-        console.log(job);
+        dispatch(createJob({ position, company, jobType, status, jobLocation }, undefined))
     };
 
     const handleJobInput = (e) => {
@@ -77,6 +75,7 @@ const AddJob = () => {
                         type="text"
                         labelText="location"
                         name="jobLocation"
+                        placeHolder="job location"
                         value={jobLocation}
                         handleChange={handleJobInput}
                     />

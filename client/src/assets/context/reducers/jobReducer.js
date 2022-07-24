@@ -19,13 +19,13 @@ const initialState = {
 const jobReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_JOB_REQUEST:
-            return {};
+            return { ...state };
 
         case CREATE_JOB_SUCCESS:
-            return {};
+            return { ...state, ...action.payload };
 
         case CREATE_JOB_FAIL:
-            return {};
+            return { ...initialState };
 
         default:
             return state;

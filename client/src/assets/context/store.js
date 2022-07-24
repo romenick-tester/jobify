@@ -11,11 +11,7 @@ const initialState = {
     auth: {
         user,
         token,
-        userLocation: location,
-        jobLocation: location
-    },
-    job: {
-        jobLocation: location
+        userLocation: location
     }
 };
 
