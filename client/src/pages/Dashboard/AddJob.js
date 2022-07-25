@@ -4,17 +4,19 @@ import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { showAlert, createJob } from "../../assets/context/actions";
 import { FormRow, Alert, FormRowSelect } from "../../components";
 
+const initialState = {
+    isEditing: false,
+    position: "",
+    company: "",
+    jobType: "full-time",
+    jobTypeOptions: ["full-time", "part-time", "intern", "remote", "temporary"],
+    status: "pending",
+    statusOptions: ["pending", "interview", "declined"],
+    jobLocation: ""
+};
+
 const AddJob = () => {
-    const [job, setJob] = useState({
-        isEditing: false,
-        position: "",
-        company: "",
-        jobType: "full-time",
-        jobTypeOptions: ["full-time", "part-time", "intern", "remote", "temporary"],
-        status: "pending",
-        statusOptions: ["pending", "interview", "declined"],
-        jobLocation: ""
-    });
+    const [job, setJob] = useState(initialState);
 
     const dispatch = useDispatch();
 
@@ -38,7 +40,8 @@ const AddJob = () => {
             return;
         }
 
-        dispatch(createJob({ position, company, jobType, status, jobLocation }, undefined))
+        dispatch(createJob({ position, company, jobType, status, jobLocation }, undefined));
+        setJob(initialState);
     };
 
     const handleJobInput = (e) => {
@@ -47,7 +50,7 @@ const AddJob = () => {
         setJob(prev => {
             return { ...prev, [name]: value }
         });
-    }
+    };
 
     return (
         <Wrapper>
