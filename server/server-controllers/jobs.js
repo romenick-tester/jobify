@@ -36,7 +36,14 @@ const deleteJob = async (req, res) => {
 
 const getAllJobs = async (req, res) => {
     try {
-        res.status(200).json("get all jobs");
+        const jobs = await Job.find({ createdBy: req.user._id });
+
+        if (jobs.length === 0) {
+            res.status(404).json({ msg: "No jobs were found for this user" });
+            throw new NotFoundError("No jobs were found for this user");
+        }
+
+        res.status(StatusCodes.OK).json({ jobs, total: jobs.length, numOfPages: 1 });
     } catch (err) {
         console.error(err.message);
     }
