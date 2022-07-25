@@ -49,7 +49,7 @@ const createJob = (formData, edit = false) => async (dispatch, getState) => {
             return;
         }
 
-        const req = await axios.post("/api/v1/jobs", formData);
+        const req = await axios.post("/api/v1/jobs", formData, config);
 
         console.log(req);
         dispatch({ type: CREATE_JOB_SUCCESS, payload: req.data });
