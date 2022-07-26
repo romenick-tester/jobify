@@ -30,6 +30,28 @@ const jobReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
 
-export default jobReducer;
+const jobListInitialState = {
+    loading: false,
+    jobs: [],
+    totalJobs: 0,
+    page: 1,
+    numOfPages: 1
+};
+
+const jobListReducer = (state = jobListInitialState, action) => {
+    switch (action.type) {
+        case "GET_JOBS_REQUEST":
+            return state;
+        case "GET_JOBS_SUCCESS":
+            return state;
+        case "GET_JOBS_FAIL":
+            return state;
+
+        default:
+            return state;
+    }
+};
+
+export { jobReducer, jobListReducer };
