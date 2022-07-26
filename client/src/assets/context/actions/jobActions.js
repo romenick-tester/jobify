@@ -3,7 +3,10 @@ import { showAlert, logoutUser } from ".";
 import {
     CREATE_JOB_REQUEST,
     CREATE_JOB_SUCCESS,
-    CREATE_JOB_FAIL
+    CREATE_JOB_FAIL,
+    GET_JOBS_REQUEST,
+    GET_JOBS_SUCCESS,
+    GET_JOBS_FAIL
 } from "../constants";
 
 
@@ -20,29 +23,6 @@ const createJob = (formData, edit = false) => async (dispatch, getState) => {
             }
         };
 
-        // const authFetch = axios.create({
-        //     baseURL: "/api/v1"
-        // });
-
-        // authFetch.interceptors.request.use((config) => {
-        //     config.headers.common["Content-Type"] = "application/json";
-        //     config.headers.common["Authorization"] = `Bearer ${token}`;
-        //     return config;
-        // }, error => {
-        //     return Promise.reject(error)
-        // });
-
-        // authFetch.interceptors.response.use((response) => {
-        //     return response;
-        // }, error => {
-
-        //     if (error.response.status === 401) {
-        //         dispatch(logoutUser());
-        //     }
-
-        //     return Promise.reject(error)
-        // });
-
         if (edit) {
             await axios.patch("/api/v1/jobs", formData, config);
             dispatch(showAlert("success", "Job has been updated!"));
@@ -56,13 +36,37 @@ const createJob = (formData, edit = false) => async (dispatch, getState) => {
         dispatch(showAlert("success", "Job created!"));
     } catch (err) {
         if (err.response.status === 401) {
-            dispatch(showAlert("danger", "Not authorized!"));
             dispatch(logoutUser());
             return;
         }
-        console.log(err.response.data.msg);
+        dispatch(showAlert("danger", err.response.data.msg));
         dispatch({ type: CREATE_JOB_FAIL });
     }
 };
 
-export { createJob };
+const getJobs = () => async (dispatch, getState) => {
+    dispatch({ type: GET_JOBS_REQUEST });
+    try {
+        const { token } = getState().auth;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        const { data } = await axios.get("/api/v1/jobs", config);
+
+        console.log(data);
+        dispatch({ type: GET_JOBS_SUCCESS, payload: data });
+    } catch (err) {
+        if (err.response.status === 401) {
+            dispatch(logoutUser());
+            return;
+        }
+        dispatch(showAlert("danger", err.response.data.msg));
+        dispatch({ type: GET_JOBS_FAIL });
+    }
+};
+
+export { createJob, getJobs };

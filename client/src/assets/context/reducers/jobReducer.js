@@ -1,7 +1,10 @@
 import {
     CREATE_JOB_REQUEST,
     CREATE_JOB_SUCCESS,
-    CREATE_JOB_FAIL
+    CREATE_JOB_FAIL,
+    GET_JOBS_REQUEST,
+    GET_JOBS_SUCCESS,
+    GET_JOBS_FAIL
 } from "../constants";
 
 const initialState = {
@@ -37,17 +40,20 @@ const jobListInitialState = {
     jobs: [],
     totalJobs: 0,
     page: 1,
-    numOfPages: 1
+    numOfPages: 1,
+    fail: false
 };
 
 const jobListReducer = (state = jobListInitialState, action) => {
     switch (action.type) {
-        case "GET_JOBS_REQUEST":
-            return state;
-        case "GET_JOBS_SUCCESS":
-            return state;
-        case "GET_JOBS_FAIL":
-            return state;
+        case GET_JOBS_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_JOBS_SUCCESS:
+            return { ...jobListInitialState, ...action.payload };
+
+        case GET_JOBS_FAIL:
+            return { ...jobListInitialState, fail: true };
 
         default:
             return state;
