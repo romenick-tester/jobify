@@ -8,27 +8,29 @@ import {
 } from "../constants";
 
 const initialState = {
+    creating: false,
     isEditing: false,
     editJobId: "",
     position: "",
     company: "",
-    // jobLocation
+    jobLocation: "",
     jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
     jobType: "full-time",
     statusOptions: ["pending", "interview", "declined"],
     status: "pending",
+    fail: false
 };
 
 const jobReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_JOB_REQUEST:
-            return { ...state };
+            return { ...state, creating: true };
 
         case CREATE_JOB_SUCCESS:
-            return { ...state, ...action.payload };
+            return { ...state, ...action.payload, creating: false, fail: false };
 
         case CREATE_JOB_FAIL:
-            return { ...initialState };
+            return { ...state, ...initialState, creating: false, fail: true };
 
         default:
             return state;
@@ -36,7 +38,7 @@ const jobReducer = (state = initialState, action) => {
 };
 
 const jobListInitialState = {
-    loading: false,
+    getting: false,
     jobs: [],
     totalJobs: 0,
     page: 1,
@@ -45,15 +47,17 @@ const jobListInitialState = {
 };
 
 const jobListReducer = (state = jobListInitialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
         case GET_JOBS_REQUEST:
-            return { ...state, loading: true };
+            return { ...state, getting: true };
 
         case GET_JOBS_SUCCESS:
-            return { ...jobListInitialState, ...action.payload };
+            return { ...state, getting: false, fail: false, ...payload };
 
         case GET_JOBS_FAIL:
-            return { ...jobListInitialState, fail: true };
+            return { ...state, ...jobListInitialState, fail: true };
 
         default:
             return state;
