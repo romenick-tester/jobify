@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getJobs } from "../../assets/context/actions";
 import { SearchContainer, JobsContainer } from "../../components";
-import { Loading } from "../../components";
 
 
 const AllJobs = () => {
