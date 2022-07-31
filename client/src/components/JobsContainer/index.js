@@ -1,29 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import Wrapper from "../../assets/wrappers/JobsContainer";
 import { Loading } from "..";
 
 
-const JobsContainer = () => {
-    const [loading, setLoading] = useState(false);
-    const [jobs, setJobs] = useState([1]);
-    const [totalJobs, setTotalJobs] = useState(jobs.length);
+const JobsContainer = ({ list, loading, total }) => {
 
     if (loading) {
         return <Loading center />
     }
 
-    if (jobs.length === 0) {
+    if (list.length === 0) {
         return <NoJobsFound />
     }
 
     return (
         <Wrapper>
             <h4> JobsContainer component  </h4>
-            <h5>{totalJobs} job{jobs.length > 1 && "s"} found</h5>
+            <h5>{total} job{list.length > 1 && "s"} found</h5>
 
             <div className="jobs">
-                {jobs.map((job, index) => {
-                    return <h4 key={index}>{job}</h4>
+                {list.map((job) => {
+                    return <h4 key={job._id}>{job.company}</h4>
                 })}
             </div>
         </Wrapper>

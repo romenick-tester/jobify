@@ -54,7 +54,15 @@ const jobListReducer = (state = jobListInitialState, action) => {
             return { ...state, getting: true };
 
         case GET_JOBS_SUCCESS:
-            return { ...state, getting: false, fail: false, ...payload };
+            return {
+                ...state,
+                jobs: payload.jobs,
+                totalJobs: payload.total,
+                page: payload.page,
+                numOfPages: payload.numOfPages,
+                getting: false,
+                fail: false,
+            };
 
         case GET_JOBS_FAIL:
             return { ...state, ...jobListInitialState, fail: true };

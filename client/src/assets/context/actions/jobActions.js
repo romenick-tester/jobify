@@ -31,7 +31,6 @@ const createJob = (formData, edit = false) => async (dispatch, getState) => {
 
         const req = await axios.post("/api/v1/jobs", formData, config);
 
-        console.log(req);
         dispatch({ type: CREATE_JOB_SUCCESS, payload: req.data });
         dispatch(showAlert("success", "Job created!"));
     } catch (err) {
@@ -57,7 +56,6 @@ const getJobs = () => async (dispatch, getState) => {
 
         const { data } = await axios.get("/api/v1/jobs", config);
 
-        console.log(data);
         dispatch({ type: GET_JOBS_SUCCESS, payload: data });
     } catch (err) {
         if (err.response.status === 401) {
