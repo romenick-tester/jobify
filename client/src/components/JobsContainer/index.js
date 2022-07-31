@@ -1,5 +1,6 @@
 import React from "react";
 import Wrapper from "../../assets/wrappers/JobsContainer";
+import Job from "./Job";
 import { Loading } from "..";
 
 
@@ -15,12 +16,11 @@ const JobsContainer = ({ list, loading, total }) => {
 
     return (
         <Wrapper>
-            <h4> JobsContainer component  </h4>
             <h5>{total} job{list.length > 1 && "s"} found</h5>
 
             <div className="jobs">
                 {list.map((job) => {
-                    return <h4 key={job._id}>{job.company}</h4>
+                    return <Job key={job._id} {...job} />
                 })}
             </div>
         </Wrapper>
