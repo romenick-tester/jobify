@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getJobs } from "../../assets/context/actions";
+import { SearchContainer, JobsContainer } from "../../components";
 
 
 const AllJobs = () => {
@@ -12,7 +13,8 @@ const AllJobs = () => {
 
     return (
         <>
-            <h4>AllJob component</h4>
+            <SearchContainer />
+            <JobsContainer />
         </>
     )
 }
