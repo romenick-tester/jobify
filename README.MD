@@ -3359,7 +3359,6 @@ return (
   </>
 )
 ```
--->
 
 #### Change State Values With Handle Change
 
@@ -3756,6 +3755,7 @@ const deleteJob = (id) =>{
 }
 value={{setEditJob,deleteJob}}
 ```
+-->
 
 ```js
 Job.js
