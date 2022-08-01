@@ -67,4 +67,12 @@ const getJobs = () => async (dispatch, getState) => {
     }
 };
 
-export { createJob, getJobs };
+const editJob = id => dispatch => {
+    console.log(`edit: ${id}`);
+};
+
+const deleteJob = id => dispatch => {
+    console.log(`delete: ${id}`);
+};
+
+export { createJob, getJobs, editJob, deleteJob };
