@@ -3755,7 +3755,6 @@ const deleteJob = (id) =>{
 }
 value={{setEditJob,deleteJob}}
 ```
--->
 
 ```js
 Job.js
@@ -3817,6 +3816,7 @@ const Job = ({
 export default Job
 ```
 
+-->
 #### JobInfo
 
 ```js

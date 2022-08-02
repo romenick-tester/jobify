@@ -10,6 +10,14 @@ const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }
     let date = moment(createdAt);
     date = date.format("MMM Do, YYYY");
 
+    const deleteJob = id => {
+        console.log(id);
+    };
+
+    const editJob = id => {
+        console.log(id);
+    };
+
     return (
         <Wrapper>
             <header>
@@ -20,16 +28,22 @@ const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }
                 </div>
             </header>
             <div className="content">
+                <div className='content-center'>
+                    <JobInfo icon={<FaLocationArrow />} text={jobLocation} />
+                    <JobInfo icon={<FaCalendarAlt />} text={date} />
+                    <JobInfo icon={<FaBriefcase />} text={jobType} />
+                    <div className={`status ${status}`}>{status}</div>
+                </div>
                 <footer>
                     <div className="actions">
                         <Link
                             to="/addjob"
                             className="btn edit-btn"
-                            onClick={() => console.log("edit " + _id)}>edit</Link>
+                            onClick={() => editJob(_id)}>edit</Link>
                         <button
                             type="button"
                             className="btn delete-btn"
-                            onClick={() => console.log("delete " + _id)}>delete</button>
+                            onClick={() => deleteJob(_id)}>delete</button>
                     </div>
                 </footer>
             </div>
