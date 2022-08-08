@@ -4,12 +4,12 @@ import {
     CREATE_JOB_FAIL,
     GET_JOBS_REQUEST,
     GET_JOBS_SUCCESS,
-    GET_JOBS_FAIL
+    GET_JOBS_FAIL,
+    SET_EDIT_JOB
 } from "../constants";
 
 const initialState = {
     creating: false,
-    isEditing: false,
     editJobId: "",
     position: "",
     company: "",
@@ -38,7 +38,7 @@ const jobReducer = (state = initialState, action) => {
 };
 
 const jobListInitialState = {
-    getting: false,
+    loading: false,
     jobs: [],
     totalJobs: 0,
     page: 1,
@@ -51,21 +51,32 @@ const jobListReducer = (state = jobListInitialState, action) => {
 
     switch (type) {
         case GET_JOBS_REQUEST:
-            return { ...state, getting: true };
+            return { ...state, loading: true };
 
         case GET_JOBS_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 jobs: payload.jobs,
                 totalJobs: payload.total,
                 page: payload.page,
                 numOfPages: payload.numOfPages,
-                getting: false,
                 fail: false,
             };
 
         case GET_JOBS_FAIL:
             return { ...state, ...jobListInitialState, fail: true };
+
+        case SET_EDIT_JOB:
+            const job = state.jobs.find(job => job._id === payload.id);
+            const { _id, position, company, jobLocation, jobType, status } = job;
+
+            return {
+                ...state,
+                isEditing: true,
+                editJobId: _id,
+                position, company, jobLocation, jobType, status
+            }
 
         default:
             return state;

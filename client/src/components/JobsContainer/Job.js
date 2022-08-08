@@ -4,17 +4,16 @@ import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/Job";
 import JobInfo from "./JobInfo";
+import { useAppContext } from "../../assets/context";
 
 
 const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }) => {
     let date = moment(createdAt);
     date = date.format("MMM Do, YYYY");
 
-    const deleteJob = id => {
-        console.log(id);
-    };
+    const { editJob } = useAppContext();
 
-    const editJob = id => {
+    const deleteJob = id => {
         console.log(id);
     };
 
@@ -39,7 +38,7 @@ const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }
                         <Link
                             to="/addjob"
                             className="btn edit-btn"
-                            onClick={() => editJob(_id)}>edit</Link>
+                            onClick={editJob}>edit</Link>
                         <button
                             type="button"
                             className="btn delete-btn"

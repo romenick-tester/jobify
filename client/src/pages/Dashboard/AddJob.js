@@ -1,27 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { showAlert, createJob } from "../../assets/context/actions";
 import { FormRow, Alert, FormRowSelect } from "../../components";
-
-const initialState = {
-    isEditing: false,
-    position: "",
-    company: "",
-    jobType: "full-time",
-    jobTypeOptions: ["full-time", "part-time", "intern", "remote", "temporary"],
-    status: "pending",
-    statusOptions: ["pending", "interview", "declined"],
-    jobLocation: ""
-};
+import { useAppContext } from "../../assets/context";
 
 const AddJob = () => {
-    const [job, setJob] = useState(initialState);
-
-    const dispatch = useDispatch();
-
-    const { alertOn } = useSelector(state => state.alert);
-
     const {
         isEditing,
         position,
@@ -30,7 +14,13 @@ const AddJob = () => {
         jobTypeOptions,
         status,
         statusOptions,
-        jobLocation } = job;
+        jobLocation,
+        setJob,
+    } = useAppContext();
+
+    const dispatch = useDispatch();
+
+    const { alertOn } = useSelector(state => state.alert);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -40,8 +30,23 @@ const AddJob = () => {
             return;
         }
 
+        if (isEditing) {
+            console.log("isEditing true");
+            return
+        }
+
         dispatch(createJob({ position, company, jobType, status, jobLocation }, undefined));
-        setJob(initialState);
+        setJob(state => {
+            return {
+                ...state,
+                isEditing: false,
+                position: "",
+                company: "",
+                jobType: "full-time",
+                status: "pending",
+                jobLocation: ""
+            }
+        });
     };
 
     const handleJobInput = (e) => {

@@ -6,7 +6,7 @@ import { SearchContainer, JobsContainer } from "../../components";
 
 const AllJobs = () => {
     const dispatch = useDispatch();
-    const jobs = useSelector(state => state.jobList);
+    const { loading, jobs, totalJobs } = useSelector(state => state.jobList);
 
     useEffect(() => {
         dispatch(getJobs());
@@ -15,7 +15,7 @@ const AllJobs = () => {
     return (
         <>
             <SearchContainer />
-            <JobsContainer list={jobs.jobs} total={jobs.totalJobs} loading={jobs.getting} />
+            <JobsContainer list={jobs} total={totalJobs} loading={loading} />
         </>
     )
 }

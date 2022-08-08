@@ -6,7 +6,8 @@ import {
     CREATE_JOB_FAIL,
     GET_JOBS_REQUEST,
     GET_JOBS_SUCCESS,
-    GET_JOBS_FAIL
+    GET_JOBS_FAIL,
+    SET_EDIT_JOB
 } from "../constants";
 
 
@@ -67,12 +68,12 @@ const getJobs = () => async (dispatch, getState) => {
     }
 };
 
-const editJob = id => dispatch => {
-    console.log(`edit: ${id}`);
+const setEditJob = id => dispatch => {
+    dispatch({ type: SET_EDIT_JOB, payload: { id } });
 };
 
 const deleteJob = id => dispatch => {
     console.log(`delete: ${id}`);
 };
 
-export { createJob, getJobs, editJob, deleteJob };
+export { createJob, getJobs, setEditJob, deleteJob };
