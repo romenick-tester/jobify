@@ -1,4 +1,6 @@
 import React, { useContext, createContext, useState } from "react";
+import { useSelector } from "react-redux";
+
 
 const AppContext = createContext();
 
@@ -15,17 +17,23 @@ const AppProvider = ({ children }) => {
         jobLocation: ""
     });
 
+    const { jobs } = useSelector(state => state.jobList);
+
     const toggleSidebar = () => {
         setSidebar(!sidebar);
     };
 
-    const editJob = () => {
-        setIsEditing(!isEditing);
+    const editJob = (id) => {
+        const job = jobs.find(x => x._id === id);
+        setJob(state => {
+            return { ...state, ...job }
+        });
+        setIsEditing(true);
     };
 
     const values = {
         sidebar, isEditing, ...job,
-        editJob, toggleSidebar, setJob
+        editJob, setIsEditing, toggleSidebar, setJob
     };
 
     return <AppContext.Provider value={{ ...values }}> {children} </AppContext.Provider>

@@ -38,7 +38,7 @@ const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }
                         <Link
                             to="/addjob"
                             className="btn edit-btn"
-                            onClick={editJob}>edit</Link>
+                            onClick={() => editJob(_id)}>edit</Link>
                         <button
                             type="button"
                             className="btn delete-btn"

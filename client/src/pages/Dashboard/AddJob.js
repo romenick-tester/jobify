@@ -16,6 +16,7 @@ const AddJob = () => {
         statusOptions,
         jobLocation,
         setJob,
+        setIsEditing
     } = useAppContext();
 
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const AddJob = () => {
     const { alertOn } = useSelector(state => state.alert);
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (!company || !position || !jobLocation) {
             dispatch(showAlert("danger", "Please review all fields!"));
@@ -32,6 +33,8 @@ const AddJob = () => {
 
         if (isEditing) {
             console.log("isEditing true");
+            setJob(state => ({ ...state, position: "", company: "", jobType: jobTypeOptions[0], status: statusOptions[0], jobLocation: "" }));
+            setIsEditing(false);
             return
         }
 
@@ -63,7 +66,6 @@ const AddJob = () => {
                 <h3>{isEditing ? "edit job" : "add job"} </h3>
                 {alertOn && <Alert />}
 
-                {/* position */}
                 <div className="form-center">
                     <FormRow
                         type="text"
@@ -71,14 +73,14 @@ const AddJob = () => {
                         value={position}
                         handleChange={handleJobInput}
                     />
-                    {/* company */}
+
                     <FormRow
                         type="text"
                         name="company"
                         value={company}
                         handleChange={handleJobInput}
                     />
-                    {/* location */}
+
                     <FormRow
                         type="text"
                         labelText="location"
@@ -87,7 +89,7 @@ const AddJob = () => {
                         value={jobLocation}
                         handleChange={handleJobInput}
                     />
-                    {/* job type */}
+
                     <FormRowSelect
                         labelText="job type"
                         name="jobType"
@@ -95,7 +97,7 @@ const AddJob = () => {
                         handleChange={handleJobInput}
                         list={jobTypeOptions}
                     />
-                    {/* job status */}
+
                     <FormRowSelect
                         name="status"
                         value={status}
