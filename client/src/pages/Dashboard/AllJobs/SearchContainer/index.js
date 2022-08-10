@@ -1,5 +1,5 @@
 import React from "react";
-import Wrapper from "../../assets/wrappers/SearchContainer";
+import Wrapper from "../../../../assets/wrappers/SearchContainer";
 
 
 const SearchContainer = () => {

@@ -2,9 +2,9 @@ import React from "react";
 import moment from "moment";
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Wrapper from "../../assets/wrappers/Job";
+import Wrapper from "../../../../assets/wrappers/Job";
+import { useAppContext } from "../../../../assets/context";
 import JobInfo from "./JobInfo";
-import { useAppContext } from "../../assets/context";
 
 
 const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }) => {

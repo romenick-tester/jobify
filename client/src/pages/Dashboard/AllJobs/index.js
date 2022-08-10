@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getJobs } from "../../assets/context/actions";
-import { SearchContainer, JobsContainer } from "../../components";
+import { getJobs } from "../../../assets/context/actions";
+import JobsContainer from "./JobsContainer";
+import SearchContainer from "./SearchContainer";
 
 
 const AllJobs = () => {

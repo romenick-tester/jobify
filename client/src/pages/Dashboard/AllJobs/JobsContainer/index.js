@@ -1,7 +1,7 @@
 import React from "react";
-import Wrapper from "../../assets/wrappers/JobsContainer";
+import Wrapper from "../../../../assets/wrappers/JobsContainer";
 import Job from "./Job";
-import { Loading } from "../";
+import { Loading } from "../../../../components";
 
 
 const JobsContainer = ({ list, loading, total }) => {
