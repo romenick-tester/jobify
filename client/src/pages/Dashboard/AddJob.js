@@ -7,6 +7,7 @@ import { useAppContext } from "../../assets/context";
 
 const AddJob = () => {
     const {
+        editJobId,
         isEditing,
         position,
         company,
@@ -16,7 +17,8 @@ const AddJob = () => {
         statusOptions,
         jobLocation,
         setJob,
-        setIsEditing
+        setIsEditing,
+        clearValues,
     } = useAppContext();
 
     const dispatch = useDispatch();
@@ -32,8 +34,8 @@ const AddJob = () => {
         }
 
         if (isEditing) {
-            console.log("isEditing true");
-            setJob(state => ({ ...state, position: "", company: "", jobType: jobTypeOptions[0], status: statusOptions[0], jobLocation: "" }));
+            console.log(editJobId);
+            setJob(state => ({ ...state, editJobId: "", position: "", company: "", jobType: jobTypeOptions[0], status: statusOptions[0], jobLocation: "" }));
             setIsEditing(false);
             return
         }
@@ -51,6 +53,11 @@ const AddJob = () => {
             }
         });
     };
+
+    const clearHandler = e => {
+        e.preventDefault();
+        clearValues();
+    }
 
     const handleJobInput = (e) => {
         const name = e.target.name
@@ -111,6 +118,13 @@ const AddJob = () => {
                             onClick={handleSubmit}
                         >
                             submit
+                        </button>
+                        <button
+                            className="btn btn-block clear-btn"
+                            type="submit"
+                            onClick={clearHandler}
+                        >
+                            clear
                         </button>
                     </div>
                 </div>

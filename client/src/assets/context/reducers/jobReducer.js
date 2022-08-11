@@ -8,7 +8,7 @@ import {
     SET_EDIT_JOB
 } from "../constants";
 
-const initialState = {
+const jobInitialState = {
     creating: false,
     editJobId: "",
     position: "",
@@ -21,7 +21,7 @@ const initialState = {
     fail: false
 };
 
-const jobReducer = (state = initialState, action) => {
+const jobReducer = (state = jobInitialState, action) => {
     switch (action.type) {
         case CREATE_JOB_REQUEST:
             return { ...state, creating: true };
@@ -30,7 +30,7 @@ const jobReducer = (state = initialState, action) => {
             return { ...state, ...action.payload, creating: false, fail: false };
 
         case CREATE_JOB_FAIL:
-            return { ...state, ...initialState, creating: false, fail: true };
+            return { ...state, ...jobInitialState, creating: false, fail: true };
 
         default:
             return state;
