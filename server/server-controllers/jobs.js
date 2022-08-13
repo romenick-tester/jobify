@@ -17,12 +17,26 @@ const createJob = async (req, res) => {
 };
 
 const updateJob = async (req, res) => {
-    const { id } = req.params;
-    try {
-        res.status(200).json(`update job: ${id}`);
-    } catch (err) {
-        console.error(err.message);
+    const { id: jobId } = req.params;
+
+    const { company, position } = req.body;
+
+    if (!company || !position) {
+        throw new BadRequestError("Please provide all values");
     }
+
+    const job = await Job.findOne({ _id: jobId });
+
+    if (!job) {
+        throw new NotFoundError(`no job with id ${jobId}`);
+    }
+
+    await Job.findOneAndUpdate({ _id: jobId }, req.body, {
+        new: true,
+        runValidators: true,
+    });
+
+    res.status(StatusCodes.OK).json("Job has been successfully updated!");
 };
 
 const deleteJob = async (req, res) => {
