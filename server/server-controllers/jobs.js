@@ -39,16 +39,23 @@ const updateJob = async (req, res) => {
         runValidators: true,
     });
 
-    res.status(StatusCodes.OK).json("Job has been successfully updated!");
+    res.status(StatusCodes.OK).json({ msg: "Job has been updated!" });
 };
 
 const deleteJob = async (req, res) => {
-    const { id } = req.params;
-    try {
-        res.status(200).json(`delete job: ${id}`);
-    } catch (err) {
-        console.error(err.message);
+    const { id: jobId } = req.params;
+
+    const job = await Job.findOne({ _id: jobId });
+
+    if (!job) {
+        throw new NotFoundError(`no job with id ${jobId}`);
     }
+
+    checkPermissions(req.user._id, job.createdBy);
+
+    await job.remove();
+
+    res.status(StatusCodes.OK).json({ msg: "Job has been removed!" });
 };
 
 const getAllJobs = async (req, res) => {
