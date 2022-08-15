@@ -1,21 +1,20 @@
 import React from "react";
 import moment from "moment";
+import { useDispatch } from "react-redux";
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Wrapper from "../../../../assets/wrappers/Job";
 import { useAppContext } from "../../../../assets/context";
 import JobInfo from "./JobInfo";
-
+import { deleteJob } from "../../../../assets/context/actions";
 
 const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }) => {
     let date = moment(createdAt);
     date = date.format("MMM Do, YYYY");
 
-    const { editJob } = useAppContext();
+    const dispatch = useDispatch();
 
-    const deleteJob = id => {
-        console.log(id);
-    };
+    const { editJob } = useAppContext();
 
     return (
         <Wrapper>
@@ -42,7 +41,7 @@ const Job = ({ _id, position, jobLocation, jobType, status, company, createdAt }
                         <button
                             type="button"
                             className="btn delete-btn"
-                            onClick={() => deleteJob(_id)}>delete</button>
+                            onClick={() => dispatch(deleteJob(_id))}>delete</button>
                     </div>
                 </footer>
             </div>

@@ -7,9 +7,11 @@ import {
     GET_JOBS_REQUEST,
     GET_JOBS_SUCCESS,
     GET_JOBS_FAIL,
-    SET_EDIT_JOB
+    SET_EDIT_JOB,
+    DELETE_JOB_REQUEST,
+    DELETE_JOB_SUCCESS,
+    DELETE_JOB_FAIL
 } from "../constants";
-
 
 const createJob = (formData, edit = false) => async (dispatch, getState) => {
     dispatch({ type: CREATE_JOB_REQUEST });
@@ -72,8 +74,24 @@ const setEditJob = id => dispatch => {
     dispatch({ type: SET_EDIT_JOB, payload: { id } });
 };
 
-const deleteJob = id => dispatch => {
-    console.log(`delete: ${id}`);
+const deleteJob = id => async (dispatch, getState) => {
+    dispatch({ type: DELETE_JOB_REQUEST });
+
+    try {
+        const { token } = getState().auth;
+
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
+        await axios.delete(`/api/v1/jobs/${id}`, config);
+
+        dispatch({ type: DELETE_JOB_SUCCESS });
+        dispatch(getJobs());
+    } catch (err) {
+        console.log(err.message);
+        dispatch({ type: DELETE_JOB_FAIL, payload: err.response.data.msg || err.message });
+    }
 };
 
 export { createJob, getJobs, setEditJob, deleteJob };

@@ -5,7 +5,10 @@ import {
     GET_JOBS_REQUEST,
     GET_JOBS_SUCCESS,
     GET_JOBS_FAIL,
-    SET_EDIT_JOB
+    SET_EDIT_JOB,
+    DELETE_JOB_REQUEST,
+    DELETE_JOB_SUCCESS,
+    DELETE_JOB_FAIL
 } from "../constants";
 
 const jobInitialState = {
@@ -78,9 +81,20 @@ const jobListReducer = (state = jobListInitialState, action) => {
                 position, company, jobLocation, jobType, status
             }
 
+        case DELETE_JOB_REQUEST:
+            return { ...state, loading: true };
+
+        case DELETE_JOB_SUCCESS:
+            return { ...state, loading: false };
+
+        case DELETE_JOB_FAIL:
+            return { ...state, loading: false, fail: true }
+
         default:
             return state;
     }
 };
+
+// remove fail boolean
 
 export { jobReducer, jobListReducer };
