@@ -19,6 +19,6 @@ router.route("/stats")
 
 router.route("/:id")
     .delete(auth, deleteJob)
-    .put(auth, updateJob);
+    .patch(auth, updateJob);
 
 export default router;
