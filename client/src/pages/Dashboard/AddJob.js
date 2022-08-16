@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
-import { showAlert, createJob } from "../../assets/context/actions";
+import { showAlert, createJob, updateJob } from "../../assets/context/actions";
 import { FormRow, Alert, FormRowSelect } from "../../components";
 import { useAppContext } from "../../assets/context";
 
@@ -34,7 +34,7 @@ const AddJob = () => {
         }
 
         if (isEditing) {
-            console.log(editJobId);
+            dispatch(updateJob({ jobId: editJobId, form: { company, position, jobLocation, jobType, status } }))
             setJob(state => ({ ...state, editJobId: "", position: "", company: "", jobType: jobTypeOptions[0], status: statusOptions[0], jobLocation: "" }));
             setIsEditing(false);
             return

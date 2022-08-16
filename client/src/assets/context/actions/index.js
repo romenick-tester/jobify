@@ -1,7 +1,7 @@
 import showAlert from "./alertActions";
 import { authUser, logoutUser } from "./authActions";
 import { updateUser } from "./userActions";
-import { createJob, getJobs, setEditJob, deleteJob } from "./jobActions";
+import { createJob, getJobs, setEditJob, deleteJob, updateJob } from "./jobActions";
 
 export {
     showAlert,
@@ -9,5 +9,5 @@ export {
     logoutUser,
     updateUser,
     createJob,
-    getJobs, setEditJob, deleteJob
+    getJobs, setEditJob, deleteJob, updateJob
 }

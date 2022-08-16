@@ -10,7 +10,10 @@ import {
     SET_EDIT_JOB,
     DELETE_JOB_REQUEST,
     DELETE_JOB_SUCCESS,
-    DELETE_JOB_FAIL
+    DELETE_JOB_FAIL,
+    UPDATE_JOB_REQUEST,
+    UPDATE_JOB_SUCCESS,
+    UPDATE_JOB_FAIL
 } from "../constants";
 
 const createJob = (formData, edit = false) => async (dispatch, getState) => {
@@ -94,4 +97,27 @@ const deleteJob = id => async (dispatch, getState) => {
     }
 };
 
-export { createJob, getJobs, setEditJob, deleteJob };
+const updateJob = ({ jobId, form }) => async (dispatch, getState) => {
+    dispatch({ type: UPDATE_JOB_REQUEST });
+
+    try {
+        const { token } = getState().auth;
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        };
+
+        await axios.patch(`/api/v1/jobs/${jobId}`, form, config);
+
+        dispatch({ type: UPDATE_JOB_SUCCESS });
+        dispatch(getJobs());
+        dispatch(showAlert("success", "Job updated!"));
+    } catch (err) {
+        dispatch({ type: UPDATE_JOB_FAIL });
+    }
+};
+
+export { createJob, getJobs, setEditJob, deleteJob, updateJob };

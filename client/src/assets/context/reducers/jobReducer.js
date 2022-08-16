@@ -8,7 +8,10 @@ import {
     SET_EDIT_JOB,
     DELETE_JOB_REQUEST,
     DELETE_JOB_SUCCESS,
-    DELETE_JOB_FAIL
+    DELETE_JOB_FAIL,
+    UPDATE_JOB_REQUEST,
+    UPDATE_JOB_SUCCESS,
+    UPDATE_JOB_FAIL,
 } from "../constants";
 
 const jobInitialState = {
@@ -88,6 +91,15 @@ const jobListReducer = (state = jobListInitialState, action) => {
             return { ...state, loading: false };
 
         case DELETE_JOB_FAIL:
+            return { ...state, loading: false, fail: true }
+
+        case UPDATE_JOB_REQUEST:
+            return { ...state, loading: true };
+
+        case UPDATE_JOB_SUCCESS:
+            return { ...state, loading: false };
+
+        case UPDATE_JOB_FAIL:
             return { ...state, loading: false, fail: true }
 
         default:
