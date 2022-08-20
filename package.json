@@ -34,7 +34,8 @@
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
     "client": "npm start --prefix client",
-    "server": "npm run server --prefix server --ignore client"
+    "server": "npm run server --prefix server --ignore client",
+    "populate": "cd server && node populate"
   },
   "keywords": [],
   "author": "",
