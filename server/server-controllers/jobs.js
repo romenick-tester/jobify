@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import Job from "../models/Job.js";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 import checkPermissions from "../utils/checkPermissions.js";
+import mongoose from "mongoose";
 
 const createJob = async (req, res) => {
     const { position, company } = req.body;
@@ -59,26 +60,33 @@ const deleteJob = async (req, res) => {
 };
 
 const getAllJobs = async (req, res) => {
-    try {
-        const jobs = await Job.find({ createdBy: req.user._id });
+    const jobs = await Job.find({ createdBy: req.user._id });
 
-        if (jobs.length === 0) {
-            res.status(404).json({ msg: "No jobs were found for this user" });
-            throw new NotFoundError("No jobs were found for this user");
-        }
-
-        res.status(StatusCodes.OK).json({ jobs, total: jobs.length, numOfPages: 1 });
-    } catch (err) {
-        console.error(err.message);
+    if (jobs.length === 0) {
+        res.status(404).json({ msg: "No jobs were found for this user" });
+        throw new NotFoundError("No jobs were found for this user");
     }
+
+    res.status(StatusCodes.OK).json({ jobs, total: jobs.length, numOfPages: 1 });
 };
 
 const showStat = async (req, res) => {
-    try {
-        res.status(200).json("show stat");
-    } catch (err) {
-        console.error(err.message);
-    }
+    // const stats = await Job.find({ createdBy: req.user._id });
+
+    // res.status(StatusCodes.OK).json({ stats });
+
+    let stats = await Job.aggregate([
+        { $match: { createdBy: mongoose.Types.ObjectId(req.user._id) } },
+        { $group: { _id: "$status", count: { $sum: 1 } } }
+    ]);
+
+    stats = stats.reduce((acc, item) => {
+        const { _id: title, count } = item;
+        acc[title] = count;
+        return acc;
+    }, {})
+
+    res.status(StatusCodes.OK).json({ stats });
 };
 
 export { createJob, updateJob, deleteJob, getAllJobs, showStat }
