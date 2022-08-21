@@ -71,10 +71,6 @@ const getAllJobs = async (req, res) => {
 };
 
 const showStat = async (req, res) => {
-    // const stats = await Job.find({ createdBy: req.user._id });
-
-    // res.status(StatusCodes.OK).json({ stats });
-
     let stats = await Job.aggregate([
         { $match: { createdBy: mongoose.Types.ObjectId(req.user._id) } },
         { $group: { _id: "$status", count: { $sum: 1 } } }
@@ -84,9 +80,17 @@ const showStat = async (req, res) => {
         const { _id: title, count } = item;
         acc[title] = count;
         return acc;
-    }, {})
+    }, {});
 
-    res.status(StatusCodes.OK).json({ stats });
+    const defaultStats = {
+        pending: stats.pending || 0,
+        interview: stats.interview || 0,
+        declined: stats.declined || 0
+    };
+
+    let monthlyApplications = [];
+
+    res.status(StatusCodes.OK).json({ stats: defaultStats, monthlyApplications });
 };
 
 export { createJob, updateJob, deleteJob, getAllJobs, showStat }
