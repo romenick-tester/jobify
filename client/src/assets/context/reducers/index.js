@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import alertReducer from "./alertReducer";
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
-import { jobReducer, jobListReducer } from "./jobReducer";
+import { jobReducer, jobListReducer, statsReducer } from "./jobReducer";
 
 
 const reducers = combineReducers({
@@ -10,7 +10,8 @@ const reducers = combineReducers({
     auth: authReducer,
     user: userReducer,
     job: jobReducer,
-    jobList: jobListReducer
+    jobList: jobListReducer,
+    stats: statsReducer
 });
 
 export default reducers;

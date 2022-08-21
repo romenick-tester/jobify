@@ -13,7 +13,10 @@ import {
     DELETE_JOB_FAIL,
     UPDATE_JOB_REQUEST,
     UPDATE_JOB_SUCCESS,
-    UPDATE_JOB_FAIL
+    UPDATE_JOB_FAIL,
+    SHOW_STATS_REQUEST,
+    SHOW_STATS_FAIL,
+    SHOW_STATS_SUCCESS
 } from "../constants";
 
 const createJob = (formData, edit = false) => async (dispatch, getState) => {
@@ -120,4 +123,26 @@ const updateJob = ({ jobId, form }) => async (dispatch, getState) => {
     }
 };
 
-export { createJob, getJobs, setEditJob, deleteJob, updateJob };
+const getStats = () => async (dispatch, getState) => {
+    dispatch({ type: SHOW_STATS_REQUEST });
+    try {
+        const { token } = getState().auth;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        const { data } = await axios.get("/api/v1/jobs/stats", config);
+
+        console.log(data);
+
+        dispatch({ type: SHOW_STATS_SUCCESS, payload: data });
+    } catch (err) {
+        console.error(err.message);
+        dispatch({ type: SHOW_STATS_FAIL });
+    }
+};
+
+export { createJob, getJobs, setEditJob, deleteJob, updateJob, getStats };

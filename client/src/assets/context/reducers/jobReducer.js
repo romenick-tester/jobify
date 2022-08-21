@@ -12,6 +12,9 @@ import {
     UPDATE_JOB_REQUEST,
     UPDATE_JOB_SUCCESS,
     UPDATE_JOB_FAIL,
+    SHOW_STATS_REQUEST,
+    SHOW_STATS_SUCCESS,
+    SHOW_STATS_FAIL,
 } from "../constants";
 
 const jobInitialState = {
@@ -109,4 +112,27 @@ const jobListReducer = (state = jobListInitialState, action) => {
 
 // remove fail boolean
 
-export { jobReducer, jobListReducer };
+const statsInitialState = {
+    loading: false,
+    stats: {},
+    monthlyApplications: []
+};
+
+const statsReducer = (state = statsInitialState, action) => {
+    const { type, payload } = action;
+    switch (type) {
+        case SHOW_STATS_REQUEST:
+            return { ...state, loading: true };
+
+        case SHOW_STATS_SUCCESS:
+            return { ...state, ...payload, loading: false };
+
+        case SHOW_STATS_FAIL:
+            return { ...state, loading: false };
+
+        default:
+            return state;
+    }
+}
+
+export { jobReducer, jobListReducer, statsReducer };
