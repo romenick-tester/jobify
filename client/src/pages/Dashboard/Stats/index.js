@@ -9,7 +9,7 @@ import StatsContainer from "./StatsContainer";
 const Stats = () => {
     const dispatch = useDispatch();
 
-    const { loading, monthlyApplications } = useSelector(state => state.stats);
+    const { loading, stats, monthlyApplications } = useSelector(state => state.stats);
 
     useEffect(() => {
         dispatch(getStats());
@@ -21,7 +21,7 @@ const Stats = () => {
 
     return (
         <>
-            <StatsContainer />
+            <StatsContainer stats={stats} />
             {monthlyApplications.length > 0 && <ChartsContainer />}
         </>
     )

@@ -3816,7 +3816,6 @@ const Job = ({
 export default Job
 ```
 
--->
 #### JobInfo
 
 ```js
@@ -4344,6 +4343,7 @@ const Stats = () => {
 export default Stats
 ```
 
+-->
 #### StatsContainer
 
 ```js
