@@ -1,10 +1,19 @@
 import React from "react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 
-const AreaChart = () => {
+const AreaChartComponent = ({ data }) => {
     return (
-        <h1>Area Chart</h1>
+        <ResponsiveContainer width="100%" height={300}>
+            <AreaChart data={data} margin={{ top: 50 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis allowDecimals={false} />
+                <Tooltip />
+                <Area type="monotone" dataKey="count" stroke="#2cb1bc" fill="#bef8fd" />
+            </AreaChart>
+        </ResponsiveContainer>
     )
 };
 
-export default AreaChart;
+export default AreaChartComponent;

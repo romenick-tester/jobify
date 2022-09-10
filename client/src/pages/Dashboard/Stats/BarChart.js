@@ -9,7 +9,7 @@ const BarChartComponent = ({ data }) => {
             <BarChart data={data} margin={{ top: 50 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis allowDecimals="false" />
+                <YAxis allowDecimals={false} />
                 <Tooltip />
                 <Bar dataKey="count" fill="#2cb1bc" barSize={75} />
             </BarChart>
